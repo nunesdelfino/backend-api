@@ -1,0 +1,51 @@
+package br.ueg.modelo.application.repository;
+
+import br.ueg.modelo.application.model.Amigo;
+import br.ueg.modelo.application.model.Pedido;
+import br.ueg.modelo.application.model.Usuario;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * Classe de persistência referente a entidade {@link Usuario}.
+ *
+ * @author UEG
+ */
+@Repository
+public interface PedidoRepository extends JpaRepository<Pedido, Long>, PedidoRepositoryCustom {
+
+    /**
+     * Listar todos os Pedidos
+     * @return
+     */
+    @Query("SELECT pedido from Pedido pedido " +
+            " INNER JOIN FETCH pedido.tamanho tamanho " +
+            " INNER JOIN FETCH pedido.saborUm sabor " +
+            " LEFT JOIN FETCH pedido.saborDois sabor " +
+            " LEFT JOIN FETCH pedido.saborTres sabor " +
+            " LEFT JOIN FETCH pedido.saborQuatro sabor " +
+            " LEFT JOIN FETCH pedido.saborCinco sabor ")
+    public List<Pedido> getTodos();
+
+    /**
+     * Busca uma {@link Pedido} pelo id Informado
+     *
+     * @param idPedido
+     * @return
+     */
+    @Query("SELECT pedido from Pedido pedido " +
+            " INNER JOIN FETCH pedido.tamanho tamanho " +
+            " INNER JOIN FETCH pedido.saborUm sabor " +
+            " LEFT JOIN FETCH pedido.saborDois sabor " +
+            " LEFT JOIN FETCH pedido.saborTres sabor " +
+            " LEFT JOIN FETCH pedido.saborQuatro sabor " +
+            " LEFT JOIN FETCH pedido.saborCinco sabor " +
+            " WHERE pedido.id = :idPedido ")
+    public Optional<Pedido> findByIdFetch( @Param("idPedido") final Long idPedido);
+
+}
