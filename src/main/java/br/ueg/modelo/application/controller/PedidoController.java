@@ -179,11 +179,11 @@ public class PedidoController extends AbstractController {
             @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
             @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
     })
-    @PutMapping(path = "/{id:[\\d]+}/ativar-pedido", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<?> tonarAmigo(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
+    @PutMapping(path = "/{id:[\\d]+}/aceitar-pedido", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> aceitarPedido(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
         Validation.max("id", id, 99999999L);
         Pedido pedido = pedidoService.getById(id.longValue());
-        pedido.setAtivo(StatusSimNao.SIM);
+        pedido.setAtivo("aceito");
         pedidoService.salvar(pedido);
         return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
     }
@@ -201,11 +201,11 @@ public class PedidoController extends AbstractController {
             @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
             @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
     })
-    @PutMapping(path = "/{id:[\\d]+}/desativar-pedido", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<?> deixarAmigo(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
+    @PutMapping(path = "/{id:[\\d]+}/cancelar-pedido", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> cancelarPedido(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
         Validation.max("id", id, 99999999L);
         Pedido pedido = pedidoService.getById(id.longValue());
-        pedido.setAtivo(StatusSimNao.NAO);
+        pedido.setAtivo("cancelado");
         pedidoService.salvar(pedido);
         return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
     }
