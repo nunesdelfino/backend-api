@@ -26,11 +26,6 @@ class Pedido {
     @Column(name = "NUMERO_CLIENTE", nullable = false, length = 12 )
     private String numero;
 
-//    @EqualsAndHashCode.Exclude
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "ID_TIPO", referencedColumnName = "ID_TIPO", nullable = false)
-//    private TipoOvo tipo;
-
     @Column(name = "TIPO_OVO", length = 20, nullable = false)
     private String tipoOvo;
 
@@ -80,8 +75,7 @@ class Pedido {
     @Column(name = "ENDERECO")
     private String endereco;
 
-    @Convert(converter = StatusSimNaoConverter.class)
     @Column(name = "ATIVO", nullable = false)
-    private StatusSimNao ativo;
+    private String ativo;
 
 }

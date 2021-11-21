@@ -82,6 +82,6 @@ class PedidoDTO implements Serializable {
     private String endereco;
 
     @ApiModelProperty(value = "Indica se o Pedido está ativo")
-    private Boolean ativo;
+    private String ativo;
 
 }
