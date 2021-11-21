@@ -177,7 +177,7 @@ public class PedidoController extends AbstractController {
     public ResponseEntity<?> aceitarPedido(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
         Validation.max("id", id, 99999999L);
         Pedido pedido = pedidoService.getById(id.longValue());
-        pedido.setAtivo("aceito");
+        pedido.setStatus("aceito");
         pedidoService.salvar(pedido);
         return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
     }
@@ -199,7 +199,7 @@ public class PedidoController extends AbstractController {
     public ResponseEntity<?> cancelarPedido(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
         Validation.max("id", id, 99999999L);
         Pedido pedido = pedidoService.getById(id.longValue());
-        pedido.setAtivo("cancelado");
+        pedido.setStatus("cancelado");
         pedidoService.salvar(pedido);
         return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
     }

@@ -70,7 +70,7 @@ public class PedidoService {
             vazio = Boolean.FALSE;
         }
 
-        if (filtroDTO.getAtivo()!=null) {
+        if (!Util.isEmpty(filtroDTO.getStatus())) {
             vazio = Boolean.FALSE;
         }
 
@@ -116,8 +116,8 @@ public class PedidoService {
      */
     public Pedido salvar(Pedido pedido) {
 
-        if(pedido.getId() == null && pedido.getAtivo() == null){
-            pedido.setAtivo("pendente");
+        if(pedido.getId() == null && Util.isEmpty(pedido.getStatus())){
+            pedido.setStatus("pendente");
             pedido.setEntregar(StatusSimNao.SIM);
         } else {
 
@@ -246,7 +246,7 @@ public class PedidoService {
             vazio = Boolean.TRUE;
         }
 
-        if (pedido.getAtivo()==null) {
+        if (Util.isEmpty(pedido.getStatus())) {
             vazio = Boolean.TRUE;
         }
 
