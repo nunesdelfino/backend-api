@@ -28,7 +28,6 @@ import java.util.stream.Collectors;
 @Component
 public class AppStartupRunner implements ApplicationRunner {
 
-    public static final String NONE="none";
     public static final String CREATE_DROP="create-drop";
     public static final String CREATE = "create";
     public static final String UPDATE = "update";
@@ -48,12 +47,6 @@ public class AppStartupRunner implements ApplicationRunner {
 
     @Autowired
     UsuarioRepository usuarioRepository;
-
-    @Autowired
-    TipoAmigoRepository tipoAmigoRepository;
-
-    @Autowired
-    AmigoRepository amigoRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -75,61 +68,10 @@ public class AppStartupRunner implements ApplicationRunner {
 
         Modulo moduloGrupo = createModuloCrud("GRUPO", "Manter Grupo");
 
-        Modulo moduloTipoAmigo = createModuloTipoAmigo();
-
-        Modulo moduloAmigo = createModuloAmigo();
-
-        Grupo grupo = createGrupoAdmin(Arrays.asList(moduloUsuario, moduloGrupo,moduloTipoAmigo, moduloAmigo));
+        Grupo grupo = createGrupoAdmin(Arrays.asList(moduloUsuario, moduloGrupo));
 
         createUsuarioAdmin(grupo);
 
-        createTipoAmigos();
-        createAmigos();
-    }
-
-    /**
-     * cria dados de amigo para tese
-     */
-    private void createAmigos() {
-
-        TipoAmigo tipoAmigo = tipoAmigoRepository.findById(1L).get();
-        TipoAmigo tipoConhecido = tipoAmigoRepository.findById(2L).get();
-
-        Amigo amigo = new Amigo();
-        amigo.setAmigo(StatusSimNao.SIM);
-        amigo.setDataAmizade(LocalDate.now());
-        amigo.setNome("Primeiro Amigo");
-        amigo.setTipo(tipoAmigo);
-
-        amigoRepository.save(amigo);
-
-        Amigo conhecido = new Amigo();
-        conhecido.setAmigo(StatusSimNao.SIM);
-        conhecido.setDataAmizade(LocalDate.now());
-        conhecido.setNome("Primeiro Conhecido");
-        conhecido.setTipo(tipoConhecido);
-
-        amigoRepository.save(conhecido);
-
-
-
-    }
-
-    /**
-     * Cria dados de tipos de amigos para teste
-     */
-    private void createTipoAmigos() {
-        TipoAmigo tipoAmigo=new TipoAmigo();
-        tipoAmigo.setNome("Amigo");
-        tipoAmigoRepository.save(tipoAmigo);
-
-        TipoAmigo tipoConhecido = new TipoAmigo();
-        tipoConhecido.setNome("Conhecido");
-        tipoAmigoRepository.save(tipoConhecido);
-
-        TipoAmigo tipoMelhorAmigo = new TipoAmigo();
-        tipoMelhorAmigo.setNome("Melhor Amigo");
-        tipoAmigoRepository.save(tipoMelhorAmigo);
     }
 
     /**
