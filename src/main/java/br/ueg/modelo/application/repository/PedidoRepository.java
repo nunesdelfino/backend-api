@@ -1,6 +1,5 @@
 package br.ueg.modelo.application.repository;
 
-import br.ueg.modelo.application.model.Amigo;
 import br.ueg.modelo.application.model.Pedido;
 import br.ueg.modelo.application.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,11 +1,7 @@
 package br.ueg.modelo.application.repository.impl;
 
-import br.ueg.modelo.application.dto.FiltroAmigoDTO;
 import br.ueg.modelo.application.dto.FiltroPedidoDTO;
-import br.ueg.modelo.application.enums.StatusSimNao;
-import br.ueg.modelo.application.model.Amigo;
 import br.ueg.modelo.application.model.Pedido;
-import br.ueg.modelo.application.repository.AmigoRepositoryCustom;
 import br.ueg.modelo.application.repository.PedidoRepositoryCustom;
 import br.ueg.modelo.comum.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;

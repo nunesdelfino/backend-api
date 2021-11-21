@@ -9,9 +9,7 @@
 package br.ueg.modelo.application.repository;
 
 
-import br.ueg.modelo.application.dto.FiltroAmigoDTO;
 import br.ueg.modelo.application.dto.FiltroPedidoDTO;
-import br.ueg.modelo.application.model.Amigo;
 import br.ueg.modelo.application.model.Grupo;
 import br.ueg.modelo.application.model.Pedido;
 

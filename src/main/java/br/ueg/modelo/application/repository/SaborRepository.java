@@ -2,7 +2,6 @@ package br.ueg.modelo.application.repository;
 
 import br.ueg.modelo.application.model.Sabor;
 import br.ueg.modelo.application.model.Tamanho;
-import br.ueg.modelo.application.model.TipoAmigo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
