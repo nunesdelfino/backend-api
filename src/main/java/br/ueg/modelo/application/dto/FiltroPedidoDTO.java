@@ -26,5 +26,5 @@ public @Data class FiltroPedidoDTO implements Serializable {
     private LocalDate dataEntrega;
 
     @ApiModelProperty(value = "Indica se o Pedido está ativo ou não")
-    private String ativo;
+    private String status;
 }

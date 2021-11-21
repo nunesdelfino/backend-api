@@ -42,14 +42,9 @@ public class PedidoRepositoryImpl implements PedidoRepositoryCustom {
             parametros.put("idTamanho", filtroPedidoDTO.getIdTamanho());
         }
 
-//        if (filtroPedidoDTO.getIdSabor()!=null) {
-//            jpql.append(" AND pedido.saborUm.id = :idSabor OR pedido.saborDois.id = :idSabor OR pedido.saborTres.id = :idSabor OR pedido.saborQuatro.id = :idSabor OR pedido.saborCinco.id = :idSabor");
-//            parametros.put("idSabor", filtroPedidoDTO.getIdSabor());
-//        }
-
-        if (filtroPedidoDTO.getAtivo()!=null) {
-            jpql.append(" AND pedido.ativo = :ativo ");
-            parametros.put("ativo", filtroPedidoDTO.getAtivo());
+        if (!Util.isEmpty(filtroPedidoDTO.getStatus())) {
+            jpql.append(" AND pedido.status = :status ");
+            parametros.put("status", filtroPedidoDTO.getStatus());
         }
 
         TypedQuery<Pedido> query = entityManager.createQuery(jpql.toString(), Pedido.class);

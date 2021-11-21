@@ -75,7 +75,7 @@ class Pedido {
     @Column(name = "ENDERECO")
     private String endereco;
 
-    @Column(name = "ATIVO", nullable = false)
-    private String ativo;
+    @Column(name = "STATUS", nullable = false)
+    private String status;
 
 }
