@@ -1,13 +1,9 @@
 package br.ueg.modelo.application.controller;
 
 import br.ueg.modelo.api.util.Validation;
-import br.ueg.modelo.application.dto.AmigoDTO;
-import br.ueg.modelo.application.dto.FiltroAmigoDTO;
 import br.ueg.modelo.application.dto.FiltroPedidoDTO;
 import br.ueg.modelo.application.dto.PedidoDTO;
-import br.ueg.modelo.application.enums.StatusSimNao;
 import br.ueg.modelo.application.mapper.PedidoMapper;
-import br.ueg.modelo.application.model.Amigo;
 import br.ueg.modelo.application.model.Pedido;
 import br.ueg.modelo.application.service.PedidoService;
 import br.ueg.modelo.comum.exception.MessageResponse;
@@ -15,14 +11,12 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Api(tags = "Pedido API")
 @RestController

@@ -2,13 +2,10 @@ package br.ueg.modelo.application.controller;
 
 import br.ueg.modelo.api.util.Validation;
 import br.ueg.modelo.application.dto.FiltroTamanhoDTO;
-import br.ueg.modelo.application.dto.SaborDTO;
 import br.ueg.modelo.application.dto.TamanhoDTO;
-import br.ueg.modelo.application.dto.TipoAmigoDTO;
 import br.ueg.modelo.application.enums.StatusSimNao;
 import br.ueg.modelo.application.mapper.TamanhoMapper;
 import br.ueg.modelo.application.model.Pedido;
-import br.ueg.modelo.application.model.Sabor;
 import br.ueg.modelo.application.model.Tamanho;
 import br.ueg.modelo.application.service.TamanhoService;
 import br.ueg.modelo.comum.exception.MessageResponse;
@@ -16,7 +13,6 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

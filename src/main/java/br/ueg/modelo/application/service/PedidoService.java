@@ -3,7 +3,6 @@ package br.ueg.modelo.application.service;
 import br.ueg.modelo.application.dto.FiltroPedidoDTO;
 import br.ueg.modelo.application.enums.StatusSimNao;
 import br.ueg.modelo.application.exception.SistemaMessageCode;
-import br.ueg.modelo.application.model.Amigo;
 import br.ueg.modelo.application.model.Pedido;
 import br.ueg.modelo.application.model.Sabor;
 import br.ueg.modelo.application.model.Tamanho;
@@ -16,8 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
