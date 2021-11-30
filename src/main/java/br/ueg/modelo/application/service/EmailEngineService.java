@@ -65,7 +65,6 @@ public class EmailEngineService {
 			String body = FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
 			mail.setBody(body);
 
-			mail.addAddressTO(usuario.getEmail()).send();
 		} catch (EmailException | IOException | TemplateException e) {
 			throw new BusinessException(e);
 		}
@@ -91,7 +90,6 @@ public class EmailEngineService {
 			String body = FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
 			mail.setBody(body);
 
-			mail.addAddressTO(usuario.getEmail()).send();
 		} catch (EmailException | IOException | TemplateException e) {
 			throw new BusinessException(e);
 		}

@@ -59,9 +59,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepositoryCustom {
 	public List<Usuario> findAllByFiltro(FiltroUsuarioDTO filtroDTO) {
 		Map<String, Object> parametros = new HashMap<>();
 		StringBuilder jpql = new StringBuilder();
-		jpql.append(" SELECT DISTINCT usuario FROM Usuario usuario " +
-				"LEFT JOIN FETCH usuario.grupos ug " +
-				"LEFT JOIN FETCH ug.grupo g ");
+		jpql.append(" SELECT DISTINCT usuario FROM Usuario usuario ");
 		jpql.append(" WHERE 1=1 ");
 		
 		if (!Util.isEmpty(filtroDTO.getLogin())) {
