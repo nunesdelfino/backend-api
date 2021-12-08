@@ -1,8 +1,6 @@
 package br.ueg.modelo.application.model;
 
 import br.ueg.modelo.application.configuration.Constante;
-import br.ueg.modelo.application.enums.StatusSimNao;
-import br.ueg.modelo.application.enums.converter.StatusSimNaoConverter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,8 +20,7 @@ class Tamanho {
     @Column(name = "TAMANHO", length = 5, nullable = false)
     private String tamanho;
 
-    @Convert(converter = StatusSimNaoConverter.class)
     @Column(name = "ATIVO", nullable = false)
-    private StatusSimNao ativo;
+    private String ativo;
 
 }
