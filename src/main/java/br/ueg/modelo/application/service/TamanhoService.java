@@ -61,7 +61,7 @@ public class TamanhoService {
             }
         }
 
-        if (filtroDTO.getAtivo() != null) {
+        if (!Util.isEmpty(filtroDTO.getAtivo())) {
             vazio = Boolean.FALSE;
         }
 

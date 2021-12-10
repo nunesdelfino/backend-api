@@ -117,7 +117,7 @@ public class AppStartupRunner implements ApplicationRunner {
                             funcionalidade -> new GrupoFuncionalidade(null, lGrupo, funcionalidade)
                     ).collect(Collectors.toSet())
             );
-        });          
+        });
 
         grupoRepository.save(grupo);
         return grupo;
