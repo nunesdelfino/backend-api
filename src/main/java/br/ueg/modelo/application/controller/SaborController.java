@@ -159,7 +159,7 @@ public class SaborController extends AbstractController {
     public ResponseEntity<?> ativarSabor(@ApiParam(value = "Id do sabor", required = true) @PathVariable final BigDecimal id) {
         Validation.max("id", id, 99999999L);
         Sabor sabor = saborService.getById(id.longValue());
-        sabor.setAtivo(StatusSimNao.SIM);
+        sabor.setAtivo("S");
         saborService.salvar(sabor);
         return ResponseEntity.ok(saborMapper.toDTO(sabor));
     }
@@ -182,7 +182,7 @@ public class SaborController extends AbstractController {
     public ResponseEntity<?> desativarSabor(@ApiParam(value = "Id do Sabor", required = true) @PathVariable final BigDecimal id) {
         Validation.max("id", id, 99999999L);
         Sabor sabor = saborService.getById(id.longValue());
-        sabor.setAtivo(StatusSimNao.NAO);
+        sabor.setAtivo("S");
         saborService.salvar(sabor);
         return ResponseEntity.ok(saborMapper.toDTO(sabor));
     }

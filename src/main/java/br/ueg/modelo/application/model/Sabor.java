@@ -22,8 +22,7 @@ class Sabor {
     @Column(name = "SABOR", length = 40, nullable = false)
     private String sabor;
 
-    @Convert(converter = StatusSimNaoConverter.class)
     @Column(name = "ATIVO", nullable = false)
-    private StatusSimNao ativo;
+    private String ativo;
 
 }

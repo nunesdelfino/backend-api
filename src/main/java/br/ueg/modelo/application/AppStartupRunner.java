@@ -43,6 +43,9 @@ public class AppStartupRunner implements ApplicationRunner {
     ModuloRepository moduloRepository;
 
     @Autowired
+    TamanhoRepository tamanhoRepository;
+
+    @Autowired
     GrupoRepository grupoRepository;
 
     @Autowired
@@ -59,6 +62,7 @@ public class AppStartupRunner implements ApplicationRunner {
                 this.ddlAuto.trim().equals(UPDATE)
         ){
             this.initiateDemoInstance();
+            this.createTamanhos();
         }
     }
 
@@ -72,6 +76,15 @@ public class AppStartupRunner implements ApplicationRunner {
 
         createUsuarioAdmin(grupo);
 
+    }
+
+    private void createTamanhos() {
+        Tamanho t = new Tamanho();
+
+        t.setTamanho("100");
+        t.setAtivo("S");
+
+        t = tamanhoRepository.save(t);
     }
 
     private void createUsuarioAdmin(Grupo grupo) {
