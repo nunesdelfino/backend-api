@@ -94,6 +94,20 @@ public class PedidoService {
     }
 
     /**
+     * Retorna uma lista de {@link Pedido} cadatrados .
+     *
+     * @return
+     */
+    public List<Pedido> getPedidoAceito() {
+        List<Pedido> pedidos = pedidoRepository.getPedidosAceitos() ;
+
+        if (CollectionUtil.isEmpty(pedidos)) {
+            throw new BusinessException(SistemaMessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO);
+        }
+        return pedidos;
+    }
+
+    /**
      * Retorno um a {@link Pedido} pelo Id informado.
      * @param id - id to Pedido
      * @return
@@ -105,33 +119,6 @@ public class PedidoService {
             throw new BusinessException(SistemaMessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO);
         }
         return pedidoOptional.get();
-    }
-
-    /**
-     * Salva a instânica de {@link Pedido} na base de dados conforme os critérios
-     * especificados na aplicação.
-     *
-     * @param pedido
-     * @return
-     */
-    public Pedido salvar(Pedido pedido) {
-
-        if(pedido.getId() == null && Util.isEmpty(pedido.getStatus())){
-            pedido.setStatus("pendente");
-            pedido.setEntregar(StatusSimNao.SIM);
-        } else {
-
-            buscaObjetosSabores(pedido);
-            buscaObjetoTamanho(pedido);
-
-        }
-
-        prepararParaSalvar(pedido);
-        validarCamposObrigatorios(pedido);
-
-
-        Pedido pedidoSaved = pedidoRepository.save(pedido);
-        return pedidoSaved;
     }
 
     private void buscaObjetoTamanho(Pedido pedido){
@@ -254,5 +241,37 @@ public class PedidoService {
             throw new BusinessException(SistemaMessageCode.ERRO_CAMPOS_OBRIGATORIOS);
         }
     }
+
+    /**
+     * Salva a instânica de {@link Pedido} na base de dados conforme os critérios
+     * especificados na aplicação.
+     *
+     * @param pedido
+     * @return
+     */
+    public Pedido salvar(Pedido pedido) {
+
+        if(pedido.getId() == null && Util.isEmpty(pedido.getStatus())){
+            pedido.setStatus("pendente");
+            pedido.setEntregar(StatusSimNao.SIM);
+
+            //Adicionado, caso o id nao exista ele vai criar um pedido com campo false
+            //No quesito producao
+            pedido.setStatusProducao(false);
+        } else {
+
+            buscaObjetosSabores(pedido);
+            buscaObjetoTamanho(pedido);
+
+        }
+
+        prepararParaSalvar(pedido);
+        validarCamposObrigatorios(pedido);
+
+
+        Pedido pedidoSaved = pedidoRepository.save(pedido);
+        return pedidoSaved;
+    }
+
 
 }
