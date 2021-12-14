@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
  *
  * @author UEG
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = { SimNaoMapper.class})
 public interface SaborMapper {
     /**
      * Converte a entidade {@link Sabor} em DTO {@link SaborDTO}
