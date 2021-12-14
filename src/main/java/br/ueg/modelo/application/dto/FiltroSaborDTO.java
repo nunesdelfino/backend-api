@@ -13,10 +13,10 @@ import java.io.Serializable;
 public @Data class FiltroSaborDTO implements Serializable {
     private static final long serialVersionUID = 7616722014159043532L;
 
-    @ApiModelProperty(value = "Sabor")
+    @ApiModelProperty(value = "sabor")
     private String sabor;
 
     @ApiModelProperty(value = "ativo")
-    private StatusSimNao ativo;
+    private String ativo;
 
 }

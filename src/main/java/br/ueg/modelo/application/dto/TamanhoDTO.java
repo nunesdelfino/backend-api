@@ -28,7 +28,7 @@ public @Data class TamanhoDTO implements Serializable {
     private String tamanho;
 
     @ApiModelProperty(value = "tamanho ativo")
-    private StatusSimNao ativo;
+    private String ativo;
 
 
 }

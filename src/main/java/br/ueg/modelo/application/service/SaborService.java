@@ -61,7 +61,7 @@ public class SaborService {
             }
         }
 
-        if (filtroDTO.getSabor() == null) {
+        if (!Util.isEmpty(filtroDTO.getAtivo())) {
             vazio = Boolean.FALSE;
         }
 
@@ -108,7 +108,7 @@ public class SaborService {
     public Sabor salvar(Sabor sabor) {
 
         if(sabor.getId() == null && sabor.getAtivo() == null){
-            sabor.setAtivo(StatusSimNao.SIM);
+            sabor.setAtivo("S");
         }
 
         validarCamposObrigatorios(sabor);
@@ -132,7 +132,7 @@ public class SaborService {
             vazio = Boolean.TRUE;
         }
 
-        if (sabor.getAtivo() == null) {
+        if (Util.isEmpty(sabor.getAtivo())) {
             vazio = Boolean.TRUE;
         }
 

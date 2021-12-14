@@ -20,6 +20,6 @@ public @Data class FiltroTamanhoDTO implements Serializable {
     private String tamanho;
 
     @ApiModelProperty(value = "Ativo")
-    private StatusSimNao ativo;
+    private String ativo;
 
 }

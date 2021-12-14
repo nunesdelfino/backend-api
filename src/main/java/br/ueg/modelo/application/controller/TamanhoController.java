@@ -3,7 +3,6 @@ package br.ueg.modelo.application.controller;
 import br.ueg.modelo.api.util.Validation;
 import br.ueg.modelo.application.dto.FiltroTamanhoDTO;
 import br.ueg.modelo.application.dto.TamanhoDTO;
-import br.ueg.modelo.application.enums.StatusSimNao;
 import br.ueg.modelo.application.mapper.TamanhoMapper;
 import br.ueg.modelo.application.model.Pedido;
 import br.ueg.modelo.application.model.Tamanho;
@@ -159,7 +158,7 @@ public class TamanhoController extends AbstractController {
     public ResponseEntity<?> ativarSabor(@ApiParam(value = "Id do sabor", required = true) @PathVariable final BigDecimal id) {
         Validation.max("id", id, 99999999L);
         Tamanho tamanho = tamanhoService.getById(id.longValue());
-        tamanho.setAtivo(StatusSimNao.SIM);
+        tamanho.setAtivo("S");
         tamanhoService.salvar(tamanho);
         return ResponseEntity.ok(tamanhoMapper.toDTO(tamanho));
     }
@@ -182,7 +181,7 @@ public class TamanhoController extends AbstractController {
     public ResponseEntity<?> desativarSabor(@ApiParam(value = "Id do Tamanho", required = true) @PathVariable final BigDecimal id) {
         Validation.max("id", id, 99999999L);
         Tamanho tamanho = tamanhoService.getById(id.longValue());
-        tamanho.setAtivo(StatusSimNao.NAO);
+        tamanho.setAtivo("N");
         tamanhoService.salvar(tamanho);
         return ResponseEntity.ok(tamanhoMapper.toDTO(tamanho));
     }

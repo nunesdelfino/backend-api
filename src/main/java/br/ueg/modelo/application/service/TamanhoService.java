@@ -2,7 +2,6 @@ package br.ueg.modelo.application.service;
 
 import br.ueg.modelo.application.configuration.Constante;
 import br.ueg.modelo.application.dto.FiltroTamanhoDTO;
-import br.ueg.modelo.application.enums.StatusSimNao;
 import br.ueg.modelo.application.exception.SistemaMessageCode;
 import br.ueg.modelo.application.model.Sabor;
 import br.ueg.modelo.application.model.Tamanho;
@@ -62,6 +61,10 @@ public class TamanhoService {
             }
         }
 
+        if (!Util.isEmpty(filtroDTO.getAtivo())) {
+            vazio = Boolean.FALSE;
+        }
+
         if (vazio) {
             throw new BusinessException(SistemaMessageCode.ERRO_FILTRO_INFORMAR_OUTRO);
         }
@@ -105,7 +108,7 @@ public class TamanhoService {
     public Tamanho salvar(Tamanho tamanho) {
 
         if(tamanho.getId() == null && tamanho.getAtivo() == null){
-            tamanho.setAtivo(StatusSimNao.SIM);
+            tamanho.setAtivo("S");
         }
 
         validarCamposObrigatorios(tamanho);
