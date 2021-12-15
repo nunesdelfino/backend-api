@@ -204,4 +204,71 @@ public class PedidoController extends AbstractController {
         return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
     }
 
+    //Adicionei para colocar os pedidos em produção.
+    /**
+     * Adiciona o {@link Pedido} em produção pelo id informado.
+     *
+     * @param id
+     * @return
+     */
+    @ApiOperation(value = "Adiciona o Pedido em produção pelo id informado.", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = PedidoDTO.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
+            @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
+    })
+    @PutMapping(path = "/{id:[\\d]+}/pedido-em-producao", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> emProducao(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
+        Validation.max("id", id, 99999999L);
+        Pedido pedido = pedidoService.getById(id.longValue());
+        pedido.setStatusProducao(true);
+        pedidoService.salvar(pedido);
+        return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
+    }
+
+    //Adicionei para colocar os pedidos em produção.
+    /**
+     * Adiciona o {@link Pedido} em produção pelo id informado.
+     *
+     * @param id
+     * @return
+     */
+    @ApiOperation(value = "Adiciona o Pedido em produção pelo id informado.", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = PedidoDTO.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
+            @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
+    })
+    @PutMapping(path = "/{id:[\\d]+}/pedido-nao-producao", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> naoProducao(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
+        Validation.max("id", id, 99999999L);
+        Pedido pedido = pedidoService.getById(id.longValue());
+        pedido.setStatusProducao(false);
+        pedidoService.salvar(pedido);
+        return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
+    }
+
+    /**
+     * Retorna uma lista de {@link PedidoDTO} cadastrados.
+     *
+     * @return
+     */
+//    @PreAuthorize("hasRole('ROLE_AMIGO_PESQUISAR')")
+    @ApiOperation(value = "Retorna uma lista de Pedido cadastrados e ativos.", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = PedidoDTO.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
+            @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
+    })
+    @GetMapping(path = "/producao",produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> getPedidoAceito() {
+        //Aproveitar o filtro existente (status="Aceito")
+        List<Pedido> pedidos = pedidoService.getPedidoAceito(); //PedidoService
+        List<PedidoDTO> pedidoDTOS = new ArrayList<>();
+        for (Pedido pedido : pedidos) {
+            PedidoDTO pedidoDTO = pedidoMapper.toDTO(pedido);
+            pedidoDTOS.add(pedidoDTO);
+        }
+        return ResponseEntity.ok(pedidoDTOS);
+    }
 }

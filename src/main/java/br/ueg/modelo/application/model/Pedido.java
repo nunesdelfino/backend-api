@@ -78,4 +78,7 @@ class Pedido {
     @Column(name = "STATUS", nullable = false)
     private String status;
 
+    //Criado para producao
+    @Column(name = "PRODUCAO", nullable = false)
+    private Boolean statusProducao;
 }
