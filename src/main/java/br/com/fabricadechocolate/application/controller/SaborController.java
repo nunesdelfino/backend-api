@@ -51,7 +51,7 @@ public class SaborController extends AbstractController {
      * Retorna a instância de {@link SaborDTO} pelo id informado.
      *
      * @param id
-     * s@return
+     * @return
      */
 //    @PreAuthorize("hasRole('ROLE_TIPOAMIGO_PESQUISAR')")
     @ApiOperation(value = "Retorna as informações do Sabor pelo id informado.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -183,7 +183,7 @@ public class SaborController extends AbstractController {
     public ResponseEntity<?> desativarSabor(@ApiParam(value = "Id do Sabor", required = true) @PathVariable final BigDecimal id) {
         Validation.max("id", id, 99999999L);
         Sabor sabor = saborService.getById(id.longValue());
-        sabor.setAtivo("S");
+        sabor.setAtivo("N");
         saborService.salvar(sabor);
         return ResponseEntity.ok(saborMapper.toDTO(sabor));
     }
