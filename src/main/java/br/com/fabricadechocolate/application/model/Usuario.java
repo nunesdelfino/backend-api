@@ -37,29 +37,13 @@ public @Data class Usuario implements Serializable{
 	@Column(name = "LOGIN_USUARIO", length = 20, nullable = false)
 	private String login;
 
-	@Column(name = "SENHA_USUARIO", length = 255, nullable = false)
+	@Column(name = "SENHA_USUARIO", length = 254, nullable = false)
 	private String senha;
 
 	@Column(name = "NOME_USUARIO", length = 65, nullable = false)
 	private String nome;
 
-	@Convert(converter = StatusAtivoInativoConverter.class)
-	@Column(name = "STAT_USUARIO", nullable = false, length = 1)
-	private StatusAtivoInativo status;
-//
-//	@EqualsAndHashCode.Exclude
-//	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//	private Set<UsuarioGrupo> grupos;
-
-
-	/**
-	 * Verifica se o Status do Usuário é igual a 'Ativo'.
-	 *
-	 * @return -
-	 */
-	@Transient
-	public boolean isStatusAtivo() {
-		return status != null && StatusAtivoInativo.ATIVO.getId().equals(status.getId());
-	}
+	@Column(name = "STAT_USUARIO", nullable = false)
+	private String status;
 
 }

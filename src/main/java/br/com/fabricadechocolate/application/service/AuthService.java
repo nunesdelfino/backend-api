@@ -271,7 +271,7 @@ public class AuthService {
 
 		Long idUsuario = resolve.getIdUsuario();
 		Usuario usuario = usuarioService.getById(idUsuario);
-		return usuarioSenhaTO.isRecuperacao() || (usuarioSenhaTO.isAtivacao() && !usuario.isStatusAtivo());
+		return usuarioSenhaTO.isRecuperacao() || (usuarioSenhaTO.isAtivacao() && usuario.getStatus().equalsIgnoreCase("S"));
 	}
 
 
@@ -315,7 +315,7 @@ public class AuthService {
 
 		registerCredentialInSecurityContext(createCredencialDTO(usuario));
 
-		if (!usuario.isStatusAtivo()) {
+		if (usuario.getStatus().equalsIgnoreCase("N")) {
 			throw new BusinessException(SistemaMessageCode.ERRO_USUARIO_INATIVO);
 		}
 	}

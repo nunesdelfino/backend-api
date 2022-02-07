@@ -71,9 +71,9 @@ public class UsuarioRepositoryImpl implements UsuarioRepositoryCustom {
 			parametros.put("nome", filtroDTO.getNome());
 		}
 
-		if (filtroDTO.getStatusEnum() != null) {
+		if (!Util.isEmpty(filtroDTO.getStatus())) {
 			jpql.append(" AND usuario.status = :status ");
-			parametros.put("status", filtroDTO.getStatusEnum());
+			parametros.put("status", filtroDTO.getStatus());
 		}
 
 		jpql.append(" ORDER BY usuario.nome ASC ");

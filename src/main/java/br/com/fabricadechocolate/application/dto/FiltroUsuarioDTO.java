@@ -35,19 +35,6 @@ public @Data class FiltroUsuarioDTO implements Serializable {
     private String nome;
 
     @ApiModelProperty(value = "Código do Status do Usuário")
-    private String idStatus;
-
-    /**
-     * @return the id
-     */
-    @JsonIgnore
-    public StatusAtivoInativo getStatusEnum() {
-    	StatusAtivoInativo status = null;
-
-        if (!Util.isEmpty(this.idStatus)) {
-            status = StatusAtivoInativo.getById(this.idStatus);
-        }
-        return status;
-    }
+    private String status;
 
 }

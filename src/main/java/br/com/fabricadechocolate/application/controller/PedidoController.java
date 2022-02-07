@@ -173,11 +173,20 @@ public class PedidoController extends AbstractController {
             @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
             @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
     })
-    @PutMapping(path = "/{id:[\\d]+}/aceitar-pedido", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<?> aceitarPedido(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
+    @PutMapping(path = "/{id:[\\d]+}/aceitar-pedido-pago", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> aceitarPedidoPago(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
         Validation.max("id", id, 99999999L);
         Pedido pedido = pedidoService.getById(id.longValue());
-        pedido.setStatus("aceito");
+        pedido.setStatus("aceitopg");
+        pedidoService.salvar(pedido);
+        return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
+    }
+
+    @PutMapping(path = "/{id:[\\d]+}/aceitar-pedido-nao-pago", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> aceitarPedidoNaoPago(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
+        Validation.max("id", id, 99999999L);
+        Pedido pedido = pedidoService.getById(id.longValue());
+        pedido.setStatus("aceitonpg");
         pedidoService.salvar(pedido);
         return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
     }

@@ -141,8 +141,7 @@ public class UsuarioController extends AbstractController {
 	})
 	@GetMapping(path = "/filtro-ativo", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<?> getUsuariosAtivosByFiltro(@ApiParam(value = "Filtro de pesquisa", required = true) @Valid @ModelAttribute("filtroDTO") FiltroUsuarioDTO filtroDTO) {
-		String idStatusUsuario = StatusAtivoInativo.ATIVO.getId();
-		filtroDTO.setIdStatus(idStatusUsuario);
+		filtroDTO.setStatus("S");
 		List<UsuarioDTO> usuariosDTO = new ArrayList<>();
 		List<Usuario> usuarios = usuarioService.getUsuariosByFiltro(filtroDTO);
 		if(usuarios != null){

@@ -44,7 +44,10 @@ public @Data class UsuarioDTO implements Serializable {
 	private String nome;
 
 	@ApiModelProperty(value = "Código do Status do Usuário")
-	private boolean status;
+	private String status;
+
+	@ApiModelProperty(value = "Senha do Usuário")
+	private String senha;
 
 	@JsonIgnore
 	@ApiModelProperty(hidden = true)

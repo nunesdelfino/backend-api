@@ -9,17 +9,15 @@
 package br.com.fabricadechocolate.application.service;
 
 import br.com.fabricadechocolate.application.configuration.Constante;
+import br.com.fabricadechocolate.application.dto.*;
 import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
 import br.com.fabricadechocolate.application.repository.UsuarioRepository;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.CollectionUtil;
 import br.com.fabricadechocolate.comum.util.Util;
-import br.com.fabricadechocolate.application.dto.AuthDTO;
-import br.com.fabricadechocolate.application.dto.FiltroUsuarioDTO;
-import br.com.fabricadechocolate.application.dto.UsuarioDTO;
-import br.com.fabricadechocolate.application.dto.UsuarioSenhaDTO;
 import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
 import br.com.fabricadechocolate.application.model.Usuario;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,9 +56,9 @@ public class UsuarioService {
 
 		if (usuario.getId() == null) {
 
-			usuario.setStatus(StatusAtivoInativo.ATIVO);
+			usuario.setStatus("S");
 			LocalDate dataCadastro = LocalDate.now();
-			usuario.setSenha(new BCryptPasswordEncoder().encode("123456"));
+			usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
 
 		} else {
 			Usuario vigente = getById(usuario.getId());
@@ -82,6 +80,14 @@ public class UsuarioService {
 		boolean invalido = Boolean.FALSE;
 
 		if (Util.isEmpty(usuario.getLogin())) {
+			invalido = Boolean.TRUE;
+		}
+
+		if (Util.isEmpty(usuario.getNome())) {
+			invalido = Boolean.TRUE;
+		}
+
+		if (Util.isEmpty(usuario.getSenha())) {
 			invalido = Boolean.TRUE;
 		}
 
@@ -124,7 +130,8 @@ public class UsuarioService {
      *
      * @param filtroDTO
      */
-	private void validarCamposObrigatoriosFiltro(final FiltroUsuarioDTO filtroDTO) {
+	private void validarCamposObrigatoriosFiltro(FiltroUsuarioDTO filtroDTO) {
+		filtroDTO = validaPesquisa(filtroDTO);
 		boolean vazio = Boolean.TRUE;
 
 		if (!Util.isEmpty(filtroDTO.getNome())) {
@@ -139,13 +146,24 @@ public class UsuarioService {
 			vazio = Boolean.FALSE;
 		}
 
-		if (!Util.isEmpty(filtroDTO.getIdStatus())) {
+		if (!Util.isEmpty(filtroDTO.getStatus())) {
 			vazio = Boolean.FALSE;
 		}
 
 		if (vazio) {
 			throw new BusinessException(SistemaMessageCode.ERRO_FILTRO_INFORMAR_OUTRO);
 		}
+	}
+
+	private FiltroUsuarioDTO validaPesquisa(FiltroUsuarioDTO filtroDTO) {
+		if(Util.isEmpty(filtroDTO.getNome()) && Util.isEmpty(filtroDTO.getLogin()) && !Util.isEmpty(filtroDTO.getStatus())){
+			if(filtroDTO.getStatus().equalsIgnoreCase("T")){
+				filtroDTO.setNome("%%%%");
+				filtroDTO.setStatus(null);
+			}
+		}
+
+		return filtroDTO;
 	}
 
     /**
@@ -216,7 +234,7 @@ public class UsuarioService {
 		if (!usuarioSenhaDTO.isAtivacao() && !usuarioSenhaDTO.isRecuperacao()) {
 			validarSenhaCorrente(usuario, usuarioSenhaDTO.getSenhaAntiga());
 		} else {
-			usuario.setStatus(StatusAtivoInativo.ATIVO);
+			usuario.setStatus("S");
 		}
 		usuario.setSenha(usuarioSenhaDTO.getNovaSenha());
 		return usuarioRepository.save(usuario);
@@ -230,7 +248,7 @@ public class UsuarioService {
      */
 	public Usuario inativar(final Long id) {
 		Usuario usuario = getById(id);
-		usuario.setStatus(StatusAtivoInativo.INATIVO);
+		usuario.setStatus("N");
 		return usuarioRepository.save(usuario);
 	}
 
@@ -242,7 +260,7 @@ public class UsuarioService {
      */
 	public Usuario ativar(final Long id) {
 		Usuario usuario = getById(id);
-		usuario.setStatus(StatusAtivoInativo.ATIVO);
+		usuario.setStatus("S");
 		return usuarioRepository.save(usuario);
 	}
 }

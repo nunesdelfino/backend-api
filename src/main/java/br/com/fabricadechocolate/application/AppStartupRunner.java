@@ -7,8 +7,10 @@ import br.com.fabricadechocolate.application.repository.GrupoRepository;
 import br.com.fabricadechocolate.application.repository.ModuloRepository;
 import br.com.fabricadechocolate.application.repository.TamanhoRepository;
 import br.com.fabricadechocolate.application.repository.UsuarioRepository;
-import br.com.fabricadechocolate.application.model.*;
 import br.com.fabricadechocolate.application.repository.*;
+import br.com.fabricadechocolate.application.service.PedidoService;
+import br.com.fabricadechocolate.application.service.SaborService;
+import br.com.fabricadechocolate.application.service.TamanhoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -48,6 +52,15 @@ public class AppStartupRunner implements ApplicationRunner {
 
     @Autowired
     TamanhoRepository tamanhoRepository;
+    TamanhoService tamanhoService = new TamanhoService();
+
+    @Autowired
+    SaborRepository saborRepository;
+    SaborService saborService = new SaborService();
+
+    @Autowired
+    PedidoRepository pedidoRepository;
+    PedidoService pedidoService = new PedidoService();
 
     @Autowired
     GrupoRepository grupoRepository;
@@ -66,7 +79,8 @@ public class AppStartupRunner implements ApplicationRunner {
                 this.ddlAuto.trim().equals(UPDATE)
         ){
             this.initiateDemoInstance();
-            this.createTamanhos();
+            this.createTamanho();
+            this.createSabor();
         }
     }
 
@@ -82,7 +96,7 @@ public class AppStartupRunner implements ApplicationRunner {
 
     }
 
-    private void createTamanhos() {
+    private void createTamanho() {
         Tamanho t = new Tamanho();
 
         t.setTamanho("100");
@@ -91,9 +105,33 @@ public class AppStartupRunner implements ApplicationRunner {
         t = tamanhoRepository.save(t);
     }
 
+    private void createSabor() {
+        Sabor s = new Sabor();
+
+        s.setSabor("Brigadeiro");
+        s.setAtivo("S");
+
+        s = saborRepository.save(s);
+    }
+
+//    private void createPedido() {
+//        Pedido p = new Pedido();
+//
+//        LocalDate ld = LocalDate.of(2022, Month.FEBRUARY, 10);
+//
+//        p.setNome("Gabriel");
+//        p.setNumero("62999337690");
+//        p.setTipoOvo("colher");
+//        p.setTamanho(createTamanho());
+//        p.setSaborUm(createSabor());
+//        p.setDataEntrega(ld);
+//
+//        p = pedidoService.salvar(p);
+//    }
+
     private void createUsuarioAdmin(Grupo grupo) {
         Usuario usuario = new Usuario();
-        usuario.setStatus(StatusAtivoInativo.ATIVO);
+        usuario.setStatus("S");
         usuario.setLogin("admin");
         usuario.setNome("Administrador");
         usuario.setSenha(new BCryptPasswordEncoder().encode("admin"));
