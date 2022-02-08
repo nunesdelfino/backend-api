@@ -48,9 +48,9 @@ public @Data class UsuarioDTO implements Serializable {
 	@ApiModelProperty(value = "Data do cadastro do Usuário")
 	private LocalDate dataCadastrado;
 
-	@Size(max = 75)
-	@ApiModelProperty(value = "Email do usuário")
-	private String email;
+//	@Size(max = 75)
+//	@ApiModelProperty(value = "Email do usuário")
+//	private String email;
 
 	@Size(max = 20)
 	@ApiModelProperty(value = "Login do Usuário")
@@ -60,9 +60,9 @@ public @Data class UsuarioDTO implements Serializable {
 	@ApiModelProperty(value = "Nome do Usuário")
 	private String nome;
 
-	@Size(max = 14)
-	@ApiModelProperty(value = "Cpf do Usuário")
-	private String cpf;
+//	@Size(max = 14)
+//	@ApiModelProperty(value = "Cpf do Usuário")
+//	private String cpf;
 
 	@JsonFormat(shape = Shape.STRING)
 	@ApiModelProperty(value = "Data de nascimento Usuário")
@@ -94,8 +94,8 @@ public @Data class UsuarioDTO implements Serializable {
 	@ApiModelProperty(value = "Grupos do Usuário")
 	private List<UsuarioGrupoDTO> grupos;
 
-	@ApiModelProperty(value = "Telefones do Usuário")
-	private List<TelefoneUsuarioDTO> telefones;
+//	@ApiModelProperty(value = "Telefones do Usuário")
+//	private List<TelefoneUsuarioDTO> telefones;
 
 	@JsonIgnore
 	@ApiModelProperty(hidden = true)

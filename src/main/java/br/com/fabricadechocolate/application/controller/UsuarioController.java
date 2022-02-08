@@ -63,7 +63,7 @@ public class UsuarioController extends AbstractController {
 	 * @param usuarioDTO
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_USUARIO_INCLUIR')")
+//	@PreAuthorize("hasRole('ROLE_USUARIO_INCLUIR')")
 	@ApiOperation(value = "Inclui um novo Usuário na base de dados.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses({ 
 			@ApiResponse(code = 200, message = "Success", response = UsuarioDTO.class),
@@ -73,7 +73,7 @@ public class UsuarioController extends AbstractController {
 	@PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> incluir(@ApiParam(value = "Informações do Usuário", required = true) @Valid @RequestBody UsuarioDTO usuarioDTO) {
 		Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
-		usuarioService.configurarUsuarioGruposAndTelefones(usuario);
+//		usuarioService.configurarUsuarioGruposAndTelefones(usuario);
 		usuario = usuarioService.salvar(usuario);
 		usuarioDTO = usuarioMapper.toDTO(usuario);
 		return ResponseEntity.ok(usuarioDTO);
@@ -86,7 +86,7 @@ public class UsuarioController extends AbstractController {
 	 * @param usuarioDTO
 	 * @return
 	 */
-    @PreAuthorize("hasRole('ROLE_USUARIO_ALTERAR')")
+//    @PreAuthorize("hasRole('ROLE_USUARIO_ALTERAR')")
     @ApiOperation(value = "Altera as informações de um Usuário na base de dados.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = UsuarioDTO.class),
@@ -96,7 +96,7 @@ public class UsuarioController extends AbstractController {
     public ResponseEntity<?> alterar(@ApiParam(value = "Código do Usuário", required = true) @PathVariable final BigDecimal id, @ApiParam(value = "Informações do Usuário", required = true) @Valid @RequestBody UsuarioDTO usuarioDTO) {
         Validation.max("id", id, 99999999L);
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
-        usuarioService.configurarUsuarioGruposAndTelefones(usuario);
+//        usuarioService.configurarUsuarioGruposAndTelefones(usuario);
         usuario.setId(id.longValue());
         usuarioService.salvar(usuario);
 		return ResponseEntity.ok(usuarioDTO);
@@ -109,7 +109,7 @@ public class UsuarioController extends AbstractController {
 	 * @param id
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_USUARIO_VISUALIZAR')")
+//	@PreAuthorize("hasRole('ROLE_USUARIO_VISUALIZAR')")
 	@ApiOperation(value = "Recupera o usuario pela id.", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses({
 			@ApiResponse(code = 200, message = "Success", response = UsuarioDTO.class),
@@ -135,7 +135,7 @@ public class UsuarioController extends AbstractController {
 	 * @param filtroDTO
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_USUARIO_PESQUISAR')")
+//	@PreAuthorize("hasRole('ROLE_USUARIO_PESQUISAR')")
 	@ApiOperation(value = "Recupera os usuarios pelo Filtro Informado.", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses({ 
 			@ApiResponse(code = 200, message = "Success", response = UsuarioDTO.class),
@@ -164,7 +164,7 @@ public class UsuarioController extends AbstractController {
 	 * @param filtroDTO
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_USUARIO_PESQUISAR')")
+//	@PreAuthorize("hasRole('ROLE_USUARIO_PESQUISAR')")
 	@ApiOperation(value = "Recupera os usuarios pelo Filtro Informado.", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses({ 
 		@ApiResponse(code = 200, message = "Success", response = UsuarioDTO.class),
@@ -176,7 +176,7 @@ public class UsuarioController extends AbstractController {
 		List<Usuario> usuarios = usuarioService.getUsuariosByFiltro(filtroDTO);
 		List<UsuarioDTO> usuariosDTO = new ArrayList<>();
 		for (Usuario usuario: usuarios) {
-			usuario.setTelefones(null);
+//			usuario.setTelefones(null);
 			usuariosDTO.add (usuarioMapper.toDTO(usuario));
 		}
 
@@ -189,7 +189,7 @@ public class UsuarioController extends AbstractController {
 	 * @param id
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_USUARIO_ATIVAR_INATIVAR')")
+//	@PreAuthorize("hasRole('ROLE_USUARIO_ATIVAR_INATIVAR')")
 	@ApiOperation(value = "Inativa o usuario.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses({ 
 			@ApiResponse(code = 200, message = "Success", response = UsuarioDTO.class),
@@ -208,7 +208,7 @@ public class UsuarioController extends AbstractController {
 	 * @param id
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_USUARIO_ATIVAR_INATIVAR')")
+//	@PreAuthorize("hasRole('ROLE_USUARIO_ATIVAR_INATIVAR')")
 	@ApiOperation(value = "Ativa o usuário.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "Success", response = UsuarioDTO.class),
@@ -221,41 +221,41 @@ public class UsuarioController extends AbstractController {
 		return ResponseEntity.ok().build();
 	}
 
-	/**
-	 * Verifica se o CPF informado é válido e se está em uso.
-	 * 
-	 * @param cpf
-	 * @return
-	 */
-	@ApiOperation(value = "Verifica se o CPF informado é válido e se está em uso.")
-	@ApiResponses({ 
-		@ApiResponse(code = 200, message = "Success"),
-		@ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class) 
-	})
-	@GetMapping(path = "cpf/valido/{cpf}")
-	public ResponseEntity<?> validarCpf(@ApiParam(value = "CPF") @PathVariable final String cpf) {
-		usuarioService.validarCpf(cpf);
-		return ResponseEntity.ok().build();
-	}
-
-	/**
-	 * Verifica se o CPF informado é válido e se está em uso.
-	 * 
-	 * @param cpf
-	 * @return
-	 */
-	@PreAuthorize("isAuthenticated()")
-	@ApiOperation(value = "Verifica se o CPF informado é válido e se está em uso.")
-	@ApiResponses({ 
-		@ApiResponse(code = 200, message = "Success"),
-		@ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class) 
-	})
-	@GetMapping(path = "/{id:[\\d]+}/cpf/valido/{cpf}")
-	public ResponseEntity<?> validarCpfUsuario(
-			@ApiParam(value = "Código do Usuário") @PathVariable final BigDecimal id,
-			@ApiParam(value = "CPF") @PathVariable final String cpf) {
-		Validation.max("id", id, 99999999L);
-		usuarioService.validarCpf(cpf, id.longValue());
-		return ResponseEntity.ok().build();
-	}
+//	/**
+//	 * Verifica se o CPF informado é válido e se está em uso.
+//	 *
+//	 * @param cpf
+//	 * @return
+//	 */
+//	@ApiOperation(value = "Verifica se o CPF informado é válido e se está em uso.")
+//	@ApiResponses({
+//		@ApiResponse(code = 200, message = "Success"),
+//		@ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class)
+//	})
+//	@GetMapping(path = "cpf/valido/{cpf}")
+//	public ResponseEntity<?> validarCpf(@ApiParam(value = "CPF") @PathVariable final String cpf) {
+//		usuarioService.validarCpf(cpf);
+//		return ResponseEntity.ok().build();
+//	}
+//
+//	/**
+//	 * Verifica se o CPF informado é válido e se está em uso.
+//	 *
+//	 * @param cpf
+//	 * @return
+//	 */
+////	@PreAuthorize("isAuthenticated()")
+//	@ApiOperation(value = "Verifica se o CPF informado é válido e se está em uso.")
+//	@ApiResponses({
+//		@ApiResponse(code = 200, message = "Success"),
+//		@ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class)
+//	})
+//	@GetMapping(path = "/{id:[\\d]+}/cpf/valido/{cpf}")
+//	public ResponseEntity<?> validarCpfUsuario(
+//			@ApiParam(value = "Código do Usuário") @PathVariable final BigDecimal id,
+//			@ApiParam(value = "CPF") @PathVariable final String cpf) {
+//		Validation.max("id", id, 99999999L);
+//		usuarioService.validarCpf(cpf, id.longValue());
+//		return ResponseEntity.ok().build();
+//	}
 }

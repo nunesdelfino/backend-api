@@ -118,7 +118,7 @@ public class AuthService {
 			TokenBuilder builder = new TokenBuilder(keyToken);
 			builder.addNome(usuario.getNome());
 			builder.addLogin(usuario.getLogin());
-			builder.addParam(Constante.PARAM_EMAIL, usuario.getEmail());
+//			builder.addParam(Constante.PARAM_EMAIL, usuario.getEmail());
 			builder.addParam(Constante.PARAM_ID_USUARIO, usuario.getId());
 			builder.addParam(Constante.PARAM_EXPIRES_IN, tokenExpireIn);
 			builder.addParam(Constante.PARAM_REFRESH_EXPIRES_IN, tokenRefreshExpireIn);
@@ -157,7 +157,7 @@ public class AuthService {
 		CredencialDTO credencialDTO;
 		credencialDTO = new CredencialDTO();
 		credencialDTO.setLogin(usuario.getLogin());
-		credencialDTO.setEmail(usuario.getEmail());
+//		credencialDTO.setEmail(usuario.getEmail());
 		credencialDTO.setNome(usuario.getNome());
 		credencialDTO.setId(usuario.getId());
 		return credencialDTO;

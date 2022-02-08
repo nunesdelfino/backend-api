@@ -155,11 +155,11 @@ public class AppStartupRunner implements ApplicationRunner {
         usuario.setStatus(StatusAtivoInativo.ATIVO);
         usuario.setDataCadastrado(LocalDate.now());
         usuario.setDataAtualizado(LocalDate.now());
-        usuario.setTelefones(new HashSet<>());
-        usuario.setCpf("10010010017");
+//        usuario.setTelefones(new HashSet<>());
+//        usuario.setCpf("10010010017");
         usuario.setLogin("admin");
         usuario.setNome("Administrador");
-        usuario.setEmail("admin@teste.com.br");
+//        usuario.setEmail("admin@teste.com.br");
         usuario.setSenha(new BCryptPasswordEncoder().encode("admin"));
 
         usuario = usuarioRepository.save(usuario);
