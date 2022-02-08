@@ -9,15 +9,16 @@
 package br.com.fabricadechocolate.api.config;
 
 
-import br.com.fabricadechocolate.api.security.AuthenticationProvider;
-import br.com.fabricadechocolate.api.security.CredentialProvider;
-import br.com.fabricadechocolate.api.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import br.com.fabricadechocolate.api.security.AuthenticationProvider;
+import br.com.fabricadechocolate.api.security.CredentialProvider;
+import br.com.fabricadechocolate.api.security.JwtAuthenticationFilter;
 
 /**
  * Classe de configuração referente a segurança da aplicação.

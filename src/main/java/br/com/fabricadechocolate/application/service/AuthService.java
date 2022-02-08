@@ -8,17 +8,18 @@
  */
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.configuration.Constante;
-import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
+import br.com.fabricadechocolate.application.dto.AuthDTO;
+import br.com.fabricadechocolate.application.dto.CredencialDTO;
+import br.com.fabricadechocolate.application.enums.StatusSimNao;
+import br.com.fabricadechocolate.application.model.Usuario;
 import br.com.fabricadechocolate.application.security.CredentialImpl;
-import br.com.fabricadechocolate.application.security.KeyToken;
 import br.com.fabricadechocolate.application.security.TokenBuilder;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.Util;
-import br.com.fabricadechocolate.application.dto.AuthDTO;
-import br.com.fabricadechocolate.application.dto.CredencialDTO;
 import br.com.fabricadechocolate.application.dto.UsuarioSenhaDTO;
-import br.com.fabricadechocolate.application.model.Usuario;
+import br.com.fabricadechocolate.application.configuration.Constante;
+import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
+import br.com.fabricadechocolate.application.security.KeyToken;
 import com.auth0.jwt.interfaces.Claim;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +30,9 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.BadRequestException;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 
@@ -102,11 +106,19 @@ public class AuthService {
 			Usuario usuario = usuarioService.getByLogin(authDTO.getLogin());
 			validarUsuarioLogin(usuario);
 
+			if (!loginByPassword(usuario, authDTO)) {
+				usuario = salvaQuantidadeTentativaAcesso(usuario);
+				throw new BusinessException(SistemaMessageCode.ERRO_USUARIO_SENHA_NAO_CONFEREM);
+			}
+
+			validarUltimoAcesso( usuario);
+
 			credencialDTO = createCredencialDTO(usuario);
 
 			TokenBuilder builder = new TokenBuilder(keyToken);
 			builder.addNome(usuario.getNome());
 			builder.addLogin(usuario.getLogin());
+//			builder.addParam(Constante.PARAM_EMAIL, usuario.getEmail());
 			builder.addParam(Constante.PARAM_ID_USUARIO, usuario.getId());
 			builder.addParam(Constante.PARAM_EXPIRES_IN, tokenExpireIn);
 			builder.addParam(Constante.PARAM_REFRESH_EXPIRES_IN, tokenRefreshExpireIn);
@@ -126,7 +138,10 @@ public class AuthService {
 
 
 			registerCredentialInSecurityContext(credencialDTO);
+			ZerarQuantidadeTentativaAcesso(usuario);
+			registrarQuantidadeAcesso(usuario);
 
+			usuarioService.salvarUltimoAcesso(usuario);
 		} catch (BadRequestException e) {
 				throw e;
 		}
@@ -142,9 +157,48 @@ public class AuthService {
 		CredencialDTO credencialDTO;
 		credencialDTO = new CredencialDTO();
 		credencialDTO.setLogin(usuario.getLogin());
+//		credencialDTO.setEmail(usuario.getEmail());
 		credencialDTO.setNome(usuario.getNome());
 		credencialDTO.setId(usuario.getId());
 		return credencialDTO;
+	}
+
+	/**
+	 * Salva a quantidade de tentativas de acessos realizadas antes de ter sucesso.
+	 * @param usuario
+	 * @return
+	 */
+	private Usuario salvaQuantidadeTentativaAcesso(Usuario usuario){
+		int qtdeTentativaAcesso = usuario.getQuantidadeTentativaAcesso() == null ? 0
+				: Integer.parseInt(usuario.getQuantidadeTentativaAcesso());
+		int count = qtdeTentativaAcesso + 1;
+		usuario.setQuantidadeTentativaAcesso(Integer.toString(count));
+		return usuarioService.salvar(usuario);
+	}
+
+	/**
+	 * Zera a quantidade de tentativas de acesos realizadas pelo usuário informado.
+	 * @param usuario
+	 */
+	private void ZerarQuantidadeTentativaAcesso(Usuario usuario){
+		int qtdeTentativaAcesso = usuario.getQuantidadeTentativaAcesso() == null ? 0
+				: Integer.parseInt(usuario.getQuantidadeTentativaAcesso());
+
+		if(qtdeTentativaAcesso > 0) {
+			usuario.setQuantidadeTentativaAcesso(null);
+			usuarioService.salvar(usuario);
+		}
+	}
+
+	/**
+	 * registra a quantidade de acessos realizadas pelo usuário informado.
+	 * @param usuario
+	 */
+	private void registrarQuantidadeAcesso(Usuario usuario){
+		BigDecimal qtdeAcesso = usuario.getQuantidadeAcesso() == null ? BigDecimal.valueOf(0)
+				: usuario.getQuantidadeAcesso();
+		usuario.setQuantidadeAcesso(qtdeAcesso.add(BigDecimal.valueOf(1)));
+		usuarioService.salvar(usuario);
 	}
 
 	/**
@@ -286,22 +340,22 @@ public class AuthService {
 		}
 	}
 
-//	/**
-//	 * Verifica se o último acesso tiver ocorrido a mais de 30 dias.
-//	 *
-//	 * @param usuario -
-//	 */
-//	private void validarUltimoAcesso(final Usuario usuario)  {
-//		if (usuario.getUltimoAcesso() != null) {
-//			Long days = ChronoUnit.DAYS.between(usuario.getUltimoAcesso(), LocalDateTime.now());
-//
-//			if (days > Constante.NUMERO_MAXIMO_DIAS_SEM_ACESSO) {
-//				usuario.setAcessoExpirado(StatusSimNao.SIM);
-//				usuarioService.salvar(usuario);
-//				throw new BusinessException(SistemaMessageCode.ERRO_USUARIO_BLOQUEADO);
-//			}
-//		}
-//	}
+	/**
+	 * Verifica se o último acesso tiver ocorrido a mais de 30 dias.
+	 * 
+	 * @param usuario -
+	 */
+	private void validarUltimoAcesso(final Usuario usuario)  {
+		if (usuario.getUltimoAcesso() != null) {
+			Long days = ChronoUnit.DAYS.between(usuario.getUltimoAcesso(), LocalDateTime.now());
+
+			if (days > Constante.NUMERO_MAXIMO_DIAS_SEM_ACESSO) {
+				usuario.setAcessoExpirado(StatusSimNao.SIM);
+				usuarioService.salvar(usuario);
+				throw new BusinessException(SistemaMessageCode.ERRO_USUARIO_BLOQUEADO);
+			}
+		}
+	}
 
 	/**
 	 * Verifica se o {@link Usuario} informado é valido no momento do login.

@@ -4,15 +4,20 @@
  */
 package br.com.fabricadechocolate.application.model;
 
-import br.com.fabricadechocolate.application.configuration.Constante;
 import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
+import br.com.fabricadechocolate.application.enums.StatusSimNao;
 import br.com.fabricadechocolate.application.enums.converter.StatusAtivoInativoConverter;
+import br.com.fabricadechocolate.application.enums.converter.StatusSimNaoConverter;
+import br.com.fabricadechocolate.application.configuration.Constante;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Set;
 
 /**
  * Classe de representação de 'Sistema'.
@@ -34,6 +39,16 @@ public @Data class Usuario implements Serializable{
 	@Column(name = "CODG_USUARIO", nullable = false)
 	private Long id;
 
+	@Column(name = "DATA_ATUALIZADO", nullable = false)
+	private LocalDate dataAtualizado;
+
+	@Column(name = "DATA_CADASTRADO", nullable = false)
+	private LocalDate dataCadastrado;
+
+//	@Column(name = "EMAIL", length = 75, nullable = false)
+//	private String email;
+
+	// https://docs.microsoft.com/pt-br/windows/win32/adschema/a-samaccountname?redirectedfrom=MSDN
 	@Column(name = "LOGIN_USUARIO", length = 20, nullable = false)
 	private String login;
 
@@ -43,14 +58,43 @@ public @Data class Usuario implements Serializable{
 	@Column(name = "NOME_USUARIO", length = 65, nullable = false)
 	private String nome;
 
+//	@Column(name = "NUMR_CPF", length = 14, nullable = false)
+//	private String cpf;
+
 	@Convert(converter = StatusAtivoInativoConverter.class)
 	@Column(name = "STAT_USUARIO", nullable = false, length = 1)
 	private StatusAtivoInativo status;
-//
+
+	@Convert(converter = StatusSimNaoConverter.class)
+	@Column(name = "STAT_BLOQUEIO_ACESSO", length = 1)
+	private StatusSimNao acessoBloqueado;
+
+	@Column(name = "CONT_TENTATIVA_ACESSO", length = 1)
+	private String quantidadeTentativaAcesso;
+
+	@Column(name = "DATA_ULTIMO_ACESSO")
+	private LocalDate ultimoAcesso;
+
+	@Column(name = "DATA_EXPIRADO_ACESSO")
+	private LocalDate dataAcessoExpirado;
+
+	/**
+	 * Quando o usuário fica mais de 90 dia sem acesso ele deve ficar acessoExpirado = {@link StatusSimNao}.SIM
+	 */
+	@Convert(converter = StatusSimNaoConverter.class)
+	@Column(name = "STAT_EXPIRADO_ACESSO", length = 1)
+	private StatusSimNao acessoExpirado;
+
+	@Column(name = "QTDE_ACESSO", precision = 2)
+	private BigDecimal quantidadeAcesso;
+
+	@EqualsAndHashCode.Exclude
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<UsuarioGrupo> grupos;
+
 //	@EqualsAndHashCode.Exclude
 //	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//	private Set<UsuarioGrupo> grupos;
-
+//	private Set<TelefoneUsuario> telefones;
 
 	/**
 	 * Verifica se o Status do Usuário é igual a 'Ativo'.

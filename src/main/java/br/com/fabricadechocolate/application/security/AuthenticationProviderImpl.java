@@ -9,10 +9,10 @@
 package br.com.fabricadechocolate.application.security;
 
 import br.com.fabricadechocolate.api.security.AuthenticationProvider;
-import br.com.fabricadechocolate.comum.exception.BusinessException;
-import br.com.fabricadechocolate.comum.security.Credential;
 import br.com.fabricadechocolate.application.dto.CredencialDTO;
 import br.com.fabricadechocolate.application.service.AuthService;
+import br.com.fabricadechocolate.comum.exception.BusinessException;
+import br.com.fabricadechocolate.comum.security.Credential;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

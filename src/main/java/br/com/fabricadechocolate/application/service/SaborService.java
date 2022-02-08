@@ -1,6 +1,7 @@
 package br.com.fabricadechocolate.application.service;
 
 import br.com.fabricadechocolate.application.configuration.Constante;
+import br.com.fabricadechocolate.application.dto.FiltroTamanhoDTO;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.CollectionUtil;
 import br.com.fabricadechocolate.comum.util.Util;
@@ -31,8 +32,10 @@ public class SaborService {
      * @param filtroDTO
      * @return
      */
-    public List<Sabor> getSaborByFiltro(final FiltroSaborDTO filtroDTO) {
+    public List<Sabor> getSaborByFiltro(FiltroSaborDTO filtroDTO) {
+        filtroDTO = validaPesquisa(filtroDTO);
         validarCamposObrigatoriosFiltro(filtroDTO);
+
 
         List<Sabor> sabor = saborRepository.findAllByFiltro(filtroDTO);
 
@@ -43,12 +46,17 @@ public class SaborService {
         return sabor;
     }
 
-    /**
-     * Verifica se pelo menos um campo de pesquisa foi informado, e se informado o
-     * nome do Grupo, verifica se tem pelo menos 1 caracter.
-     *
-     * @param filtroDTO
-     */
+    private FiltroSaborDTO validaPesquisa(FiltroSaborDTO filtroDTO) {
+        if(Util.isEmpty(filtroDTO.getSabor()) && !Util.isEmpty(filtroDTO.getAtivo())){
+            if(filtroDTO.getAtivo().equalsIgnoreCase("T")){
+                filtroDTO.setSabor("%%%");
+                filtroDTO.setAtivo(null);
+            }
+        }
+
+        return filtroDTO;
+    }
+
     private void validarCamposObrigatoriosFiltro(final FiltroSaborDTO filtroDTO) {
         boolean vazio = Boolean.TRUE;
 

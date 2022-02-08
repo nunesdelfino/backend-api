@@ -8,24 +8,27 @@
  */
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.configuration.Constante;
-import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
-import br.com.fabricadechocolate.application.repository.UsuarioRepository;
+import br.com.fabricadechocolate.application.dto.AuthDTO;
+import br.com.fabricadechocolate.application.dto.FiltroUsuarioDTO;
+import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
+import br.com.fabricadechocolate.application.model.TelefoneUsuario;
+import br.com.fabricadechocolate.application.model.Usuario;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.CollectionUtil;
 import br.com.fabricadechocolate.comum.util.Util;
-import br.com.fabricadechocolate.application.dto.AuthDTO;
-import br.com.fabricadechocolate.application.dto.FiltroUsuarioDTO;
 import br.com.fabricadechocolate.application.dto.UsuarioDTO;
 import br.com.fabricadechocolate.application.dto.UsuarioSenhaDTO;
-import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
-import br.com.fabricadechocolate.application.model.Usuario;
+import br.com.fabricadechocolate.application.model.UsuarioGrupo;
+import br.com.fabricadechocolate.application.configuration.Constante;
+import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
+import br.com.fabricadechocolate.application.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -55,23 +58,60 @@ public class UsuarioService {
      */
 	public Usuario salvar(Usuario usuario) {
 		validarCamposObrigatorios(usuario);
+//		validarUsuarioDuplicadoPorCpf(usuario);
 
 		if (usuario.getId() == null) {
 
 			usuario.setStatus(StatusAtivoInativo.ATIVO);
 			LocalDate dataCadastro = LocalDate.now();
+			usuario.setDataAtualizado(dataCadastro);
+			usuario.setDataCadastrado(dataCadastro);
 			usuario.setSenha(new BCryptPasswordEncoder().encode("123456"));
+			//usuario.setNome(user.getFirstName().concat(user.getLastName()));
 
 		} else {
 			Usuario vigente = getById(usuario.getId());
 
 			usuario.setStatus(vigente.getStatus());
 			usuario.setSenha(vigente.getSenha());
+			usuario.setDataCadastrado(vigente.getDataCadastrado());
+			usuario.setDataAtualizado(LocalDate.now());
 		}
 
 		usuario = usuarioRepository.save(usuario);
 		return usuario;
 	}
+
+//	/**
+//	 * Configura o {@link Usuario} dentro de {@link UsuarioGrupo} e {@link TelefoneUsuario} para salvar.
+//	 *
+//	 * @param usuario
+//	 */
+//	public void configurarUsuarioGruposAndTelefones(Usuario usuario) {
+//		for (UsuarioGrupo usuarioGrupo : usuario.getGrupos()) {
+//			usuarioGrupo.setUsuario(usuario);
+//		}
+//
+//		for (TelefoneUsuario telefoneUsuario : usuario.getTelefones()) {
+//			telefoneUsuario.setUsuario(usuario);
+//		}
+//	}
+
+//    /**
+//     * Verifica a existencia de {@link Usuario} acordo com o 'cpf' informado.
+//     *
+//     * @param usuario
+//     */
+//	private void validarUsuarioDuplicadoPorCpf(final Usuario usuario) {
+//		Long count = usuarioRepository.countByCpf(usuario.getCpf());
+//
+//		if ( (count > BigDecimal.ONE.longValue() && usuario.getId()!=null) ||
+//				(count > BigDecimal.ZERO.longValue() && usuario.getId()==null)
+//		) {
+//			throw new BusinessException(SistemaMessageCode.ERRO_LOGIN_DUPLICADO);
+//		}
+//	}
+
 
     /**
      * Verifica se os campos obrigatorios de {@link Usuario} foram preenchidos.
@@ -84,6 +124,9 @@ public class UsuarioService {
 		if (Util.isEmpty(usuario.getLogin())) {
 			invalido = Boolean.TRUE;
 		}
+
+		if (usuario.getGrupos() == null)
+			invalido = Boolean.TRUE;
 
 		if (invalido) {
 			throw new BusinessException(SistemaMessageCode.ERRO_CAMPOS_OBRIGATORIOS);
@@ -146,6 +189,16 @@ public class UsuarioService {
 		if (vazio) {
 			throw new BusinessException(SistemaMessageCode.ERRO_FILTRO_INFORMAR_OUTRO);
 		}
+	}
+
+    /**
+     * Registra o ultimo acesso do Usuário na base de dados.
+     *
+     * @param usuario -
+     */
+	public void salvarUltimoAcesso(Usuario usuario) {
+		usuario.setUltimoAcesso(LocalDate.now());
+		usuarioRepository.save(usuario);
 	}
 
     /**
@@ -222,6 +275,45 @@ public class UsuarioService {
 		return usuarioRepository.save(usuario);
 	}
 
+//	/**
+//	 * Retorna a instância de {@link Usuario} conforme o 'cpf' informado.
+//	 *
+//	 * @param cpf
+//	 * @return
+//	 */
+//	public Usuario findByCpfUsuario(final String cpf) {
+//		return usuarioRepository.findByCpf(cpf);
+//	}
+
+//	/**
+//	 * Retorna a instância do {@link Usuario} conforme o 'cpf' informado
+//	 * e que não tenha o 'id' informado.
+//	 *
+//	 * @param cpf
+//	 * @param id
+//	 * @return
+//	 */
+//	public Usuario findByCpfUsuarioAndNotId(final String cpf, final Long id) {
+//		return usuarioRepository.findByCpfAndNotId(cpf, id);
+//	}
+
+//    /**
+//     * Solicita a recuperação de senha do {@link Usuario}.
+//     *
+//     * @param cpf -
+//     * @return -
+//     */
+//	public Usuario recuperarSenha(final String cpf) {
+//		Usuario usuario = findByCpfUsuario(cpf);
+//
+//		if (usuario == null) {
+//			throw new BusinessException(SistemaMessageCode.ERRO_USUARIO_NAO_ENCONTRADO);
+//		}
+//
+//		emailService.enviarEmailEsqueciSenha(usuario);
+//		return usuario;
+//	}
+
     /**
      * Inativa o {@link Usuario}.
      *
@@ -245,4 +337,52 @@ public class UsuarioService {
 		usuario.setStatus(StatusAtivoInativo.ATIVO);
 		return usuarioRepository.save(usuario);
 	}
+
+	/**
+	 * Verifica se o CPF informado é válido.
+	 * 
+	 * @param cpf
+	 * @return
+	 */
+	private boolean isCpfValido(final String cpf) {
+		boolean valido = false;
+
+		if (!Util.isEmpty(cpf)) {
+			valido = Util.isCpfValido(cpf);
+		}
+		return valido;
+	}
+
+//	/**
+//	 * Verifica se o CPF informado é válido e se está em uso.
+//	 *
+//	 * @param cpf
+//	 */
+//	public void validarCpf(final String cpf) {
+//		validarCpf(cpf, null);
+//	}
+//
+//	/**
+//	 * Verifica se o CPF informado é válido e se está em uso.
+//	 *
+//	 * @param cpf
+//	 * @param id
+//	 */
+//	public void validarCpf(final String cpf, final Long id) {
+//		if (!isCpfValido(cpf)) {
+//			throw new BusinessException(SistemaMessageCode.ERRO_CPF_INVALIDO);
+//		}
+//
+//		Usuario usuario;
+//
+//		if (id == null) {
+//			usuario = findByCpfUsuario(cpf);
+//		} else {
+//			usuario = findByCpfUsuarioAndNotId(cpf, id);
+//		}
+//
+//		if (usuario != null) {
+//			throw new BusinessException(SistemaMessageCode.ERRO_CPF_EM_USO);
+//		}
+//	}
 }

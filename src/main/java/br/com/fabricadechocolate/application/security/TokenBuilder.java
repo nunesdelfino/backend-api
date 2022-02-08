@@ -8,8 +8,8 @@
  */
 package br.com.fabricadechocolate.application.security;
 
-import br.com.fabricadechocolate.application.configuration.Constante;
 import br.com.fabricadechocolate.comum.util.Util;
+import br.com.fabricadechocolate.application.configuration.Constante;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;

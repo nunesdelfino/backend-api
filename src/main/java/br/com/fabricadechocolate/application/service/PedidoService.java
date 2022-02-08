@@ -1,5 +1,6 @@
 package br.com.fabricadechocolate.application.service;
 
+import br.com.fabricadechocolate.application.dto.FiltroSaborDTO;
 import br.com.fabricadechocolate.application.model.Pedido;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.CollectionUtil;
@@ -37,7 +38,8 @@ public class PedidoService {
      * @param filtroDTO
      * @return
      */
-    public List<Pedido> getPedidosByFiltro(final FiltroPedidoDTO filtroDTO) {
+    public List<Pedido> getPedidosByFiltro(FiltroPedidoDTO filtroDTO) {
+        filtroDTO = validaPesquisa(filtroDTO);
         validarCamposObrigatoriosFiltro(filtroDTO);
 
         List<Pedido> pedidos = pedidoRepository.findAllByFiltro(filtroDTO);
@@ -47,6 +49,17 @@ public class PedidoService {
         }
 
         return pedidos;
+    }
+
+    private FiltroPedidoDTO validaPesquisa(FiltroPedidoDTO filtroDTO) {
+        if(Util.isEmpty(filtroDTO.getNome()) && filtroDTO.getIdTamanho() == null && filtroDTO.getDataEntrega() == null && !Util.isEmpty(filtroDTO.getStatus())){
+            if(filtroDTO.getStatus().equalsIgnoreCase("T")){
+                filtroDTO.setNome("%%%");
+                filtroDTO.setStatus(null);
+            }
+        }
+
+        return filtroDTO;
     }
 
     /**

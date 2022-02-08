@@ -8,8 +8,8 @@
  */
 package br.com.fabricadechocolate.application.dto;
 
-import br.com.fabricadechocolate.application.model.Modulo;
 import br.com.fabricadechocolate.comum.util.Util;
+import br.com.fabricadechocolate.application.model.Modulo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;

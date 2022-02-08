@@ -15,11 +15,11 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import br.com.fabricadechocolate.comum.util.Util;
 import br.com.fabricadechocolate.application.dto.FiltroUsuarioDTO;
 import br.com.fabricadechocolate.application.dto.UsuarioDTO;
 import br.com.fabricadechocolate.application.model.Usuario;
 import br.com.fabricadechocolate.application.repository.UsuarioRepositoryCustom;
+import br.com.fabricadechocolate.comum.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -58,7 +58,9 @@ public class UsuarioRepositoryImpl implements UsuarioRepositoryCustom {
 	public List<Usuario> findAllByFiltro(FiltroUsuarioDTO filtroDTO) {
 		Map<String, Object> parametros = new HashMap<>();
 		StringBuilder jpql = new StringBuilder();
-		jpql.append(" SELECT DISTINCT usuario FROM Usuario usuario ");
+		jpql.append(" SELECT DISTINCT usuario FROM Usuario usuario " +
+				"LEFT JOIN FETCH usuario.grupos ug " +
+				"LEFT JOIN FETCH ug.grupo g ");
 		jpql.append(" WHERE 1=1 ");
 		
 		if (!Util.isEmpty(filtroDTO.getLogin())) {

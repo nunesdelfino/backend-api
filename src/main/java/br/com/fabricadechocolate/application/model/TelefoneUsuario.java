@@ -8,9 +8,9 @@
  */
 package br.com.fabricadechocolate.application.model;
 
-import br.com.fabricadechocolate.application.configuration.Constante;
 import br.com.fabricadechocolate.application.enums.TipoTelefoneUsuario;
 import br.com.fabricadechocolate.application.enums.converter.TipoTelefoneUsuarioConverter;
+import br.com.fabricadechocolate.application.configuration.Constante;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

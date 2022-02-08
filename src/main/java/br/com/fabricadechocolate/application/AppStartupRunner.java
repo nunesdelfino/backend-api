@@ -1,14 +1,11 @@
 package br.com.fabricadechocolate.application;
 
-import br.com.fabricadechocolate.application.model.*;
 import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
 import br.com.fabricadechocolate.application.enums.StatusSimNao;
+import br.com.fabricadechocolate.application.model.*;
 import br.com.fabricadechocolate.application.repository.GrupoRepository;
 import br.com.fabricadechocolate.application.repository.ModuloRepository;
-import br.com.fabricadechocolate.application.repository.TamanhoRepository;
 import br.com.fabricadechocolate.application.repository.UsuarioRepository;
-import br.com.fabricadechocolate.application.model.*;
-import br.com.fabricadechocolate.application.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +15,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -47,9 +45,6 @@ public class AppStartupRunner implements ApplicationRunner {
     ModuloRepository moduloRepository;
 
     @Autowired
-    TamanhoRepository tamanhoRepository;
-
-    @Autowired
     GrupoRepository grupoRepository;
 
     @Autowired
@@ -66,7 +61,6 @@ public class AppStartupRunner implements ApplicationRunner {
                 this.ddlAuto.trim().equals(UPDATE)
         ){
             this.initiateDemoInstance();
-            this.createTamanhos();
         }
     }
 
@@ -82,26 +76,97 @@ public class AppStartupRunner implements ApplicationRunner {
 
     }
 
-    private void createTamanhos() {
-        Tamanho t = new Tamanho();
+    /**
+     * Cria o Modulo de tipo de amigo e salva.
+     * @return tipo amigo salvo no banco.
+     */
+    private Modulo createModuloTipoAmigo() {
+        Modulo moduloTipoAmigo = new Modulo();
 
-        t.setTamanho("100");
-        t.setAtivo("S");
+        moduloTipoAmigo.setMnemonico("TIPOAMIGO");
+        moduloTipoAmigo.setNome("Manter Tipo Amigo ");
+        moduloTipoAmigo.setStatus(StatusAtivoInativo.ATIVO);
+        moduloTipoAmigo = moduloRepository.save(moduloTipoAmigo);
 
-        t = tamanhoRepository.save(t);
+        Set<Funcionalidade> funcionalidades = getFuncionalidadesCrud().stream()
+                .filter(
+                        funcionalidade -> !funcionalidade.getMnemonico().equals("ATIVAR_INATIVAR")
+                ).collect(Collectors.toSet());
+
+        Funcionalidade fManter = new Funcionalidade();
+        fManter.setMnemonico("REMOVER");
+        fManter.setNome("Remover");
+        fManter.setStatus(StatusAtivoInativo.ATIVO);
+        funcionalidades.add(fManter);
+
+
+        for(Funcionalidade funcionalidade: funcionalidades){
+            funcionalidade.setModulo(moduloTipoAmigo);
+        }
+
+        moduloTipoAmigo.setFuncionalidades(funcionalidades);
+        moduloTipoAmigo = moduloRepository.save(moduloTipoAmigo);
+
+        return moduloTipoAmigo;
+    }
+
+    /**
+     * Cria o Modulo de amigo e salva.
+     * @return tipo amigo salvo no banco.
+     */
+    private Modulo createModuloAmigo() {
+        Modulo moduloAmigo = new Modulo();
+
+        moduloAmigo.setMnemonico("AMIGO");
+        moduloAmigo.setNome("Manter Amigo ");
+        moduloAmigo.setStatus(StatusAtivoInativo.ATIVO);
+        moduloAmigo = moduloRepository.save(moduloAmigo);
+
+        Set<Funcionalidade> funcionalidades = getFuncionalidadesCrud().stream()
+                .filter(
+                        funcionalidade -> !funcionalidade.getMnemonico().equals("ATIVAR_INATIVAR")
+                ).collect(Collectors.toSet());
+
+        Funcionalidade fManter = new Funcionalidade();
+        fManter.setMnemonico("REMOVER");
+        fManter.setNome("Remover");
+        fManter.setStatus(StatusAtivoInativo.ATIVO);
+        funcionalidades.add(fManter);
+
+        Funcionalidade fAmigo = new Funcionalidade();
+        fAmigo.setMnemonico("STATUS");
+        fAmigo.setNome("É Amigo");
+        fAmigo.setStatus(StatusAtivoInativo.ATIVO);
+        funcionalidades.add(fAmigo);
+
+
+        for(Funcionalidade funcionalidade: funcionalidades){
+            funcionalidade.setModulo(moduloAmigo);
+        }
+
+        moduloAmigo.setFuncionalidades(funcionalidades);
+        moduloAmigo = moduloRepository.save(moduloAmigo);
+
+        return moduloAmigo;
     }
 
     private void createUsuarioAdmin(Grupo grupo) {
         Usuario usuario = new Usuario();
         usuario.setStatus(StatusAtivoInativo.ATIVO);
+        usuario.setDataCadastrado(LocalDate.now());
+        usuario.setDataAtualizado(LocalDate.now());
+//        usuario.setTelefones(new HashSet<>());
+//        usuario.setCpf("10010010017");
         usuario.setLogin("admin");
         usuario.setNome("Administrador");
+//        usuario.setEmail("admin@teste.com.br");
         usuario.setSenha(new BCryptPasswordEncoder().encode("admin"));
 
         usuario = usuarioRepository.save(usuario);
 
-//        Set<UsuarioGrupo> usuarioGrupos = new HashSet<>();
-//        usuarioGrupos.add(new UsuarioGrupo(null,usuario,grupo));
+        Set<UsuarioGrupo> usuarioGrupos = new HashSet<>();
+        usuarioGrupos.add(new UsuarioGrupo(null,usuario,grupo));
+        usuario.setGrupos(usuarioGrupos);
         usuario = usuarioRepository.save(usuario);
     }
 

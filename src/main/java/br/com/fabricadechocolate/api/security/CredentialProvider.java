@@ -8,8 +8,8 @@
  */
 package br.com.fabricadechocolate.api.security;
 
-import br.com.fabricadechocolate.comum.security.ComumCredentialProvider;
 import br.com.fabricadechocolate.comum.security.Credential;
+import br.com.fabricadechocolate.comum.security.ComumCredentialProvider;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 

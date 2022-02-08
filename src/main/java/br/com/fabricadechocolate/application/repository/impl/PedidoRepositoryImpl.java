@@ -1,9 +1,9 @@
 package br.com.fabricadechocolate.application.repository.impl;
 
-import br.com.fabricadechocolate.application.model.Pedido;
-import br.com.fabricadechocolate.comum.util.Util;
 import br.com.fabricadechocolate.application.dto.FiltroPedidoDTO;
+import br.com.fabricadechocolate.application.model.Pedido;
 import br.com.fabricadechocolate.application.repository.PedidoRepositoryCustom;
+import br.com.fabricadechocolate.comum.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

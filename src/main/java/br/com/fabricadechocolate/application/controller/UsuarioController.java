@@ -21,9 +21,11 @@ import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
 import br.com.fabricadechocolate.application.mapper.UsuarioMapper;
 import br.com.fabricadechocolate.application.model.Usuario;
 import br.com.fabricadechocolate.application.service.UsuarioService;
+import br.com.fabricadechocolate.comum.exception.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +35,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fabricadechocolate.comum.exception.MessageResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -72,6 +73,7 @@ public class UsuarioController extends AbstractController {
 	@PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> incluir(@ApiParam(value = "Informações do Usuário", required = true) @Valid @RequestBody UsuarioDTO usuarioDTO) {
 		Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+//		usuarioService.configurarUsuarioGruposAndTelefones(usuario);
 		usuario = usuarioService.salvar(usuario);
 		usuarioDTO = usuarioMapper.toDTO(usuario);
 		return ResponseEntity.ok(usuarioDTO);
@@ -94,6 +96,7 @@ public class UsuarioController extends AbstractController {
     public ResponseEntity<?> alterar(@ApiParam(value = "Código do Usuário", required = true) @PathVariable final BigDecimal id, @ApiParam(value = "Informações do Usuário", required = true) @Valid @RequestBody UsuarioDTO usuarioDTO) {
         Validation.max("id", id, 99999999L);
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+//        usuarioService.configurarUsuarioGruposAndTelefones(usuario);
         usuario.setId(id.longValue());
         usuarioService.salvar(usuario);
 		return ResponseEntity.ok(usuarioDTO);
@@ -173,6 +176,7 @@ public class UsuarioController extends AbstractController {
 		List<Usuario> usuarios = usuarioService.getUsuariosByFiltro(filtroDTO);
 		List<UsuarioDTO> usuariosDTO = new ArrayList<>();
 		for (Usuario usuario: usuarios) {
+//			usuario.setTelefones(null);
 			usuariosDTO.add (usuarioMapper.toDTO(usuario));
 		}
 
@@ -216,4 +220,42 @@ public class UsuarioController extends AbstractController {
 		usuarioService.ativar(id.longValue());
 		return ResponseEntity.ok().build();
 	}
+
+//	/**
+//	 * Verifica se o CPF informado é válido e se está em uso.
+//	 *
+//	 * @param cpf
+//	 * @return
+//	 */
+//	@ApiOperation(value = "Verifica se o CPF informado é válido e se está em uso.")
+//	@ApiResponses({
+//		@ApiResponse(code = 200, message = "Success"),
+//		@ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class)
+//	})
+//	@GetMapping(path = "cpf/valido/{cpf}")
+//	public ResponseEntity<?> validarCpf(@ApiParam(value = "CPF") @PathVariable final String cpf) {
+//		usuarioService.validarCpf(cpf);
+//		return ResponseEntity.ok().build();
+//	}
+//
+//	/**
+//	 * Verifica se o CPF informado é válido e se está em uso.
+//	 *
+//	 * @param cpf
+//	 * @return
+//	 */
+////	@PreAuthorize("isAuthenticated()")
+//	@ApiOperation(value = "Verifica se o CPF informado é válido e se está em uso.")
+//	@ApiResponses({
+//		@ApiResponse(code = 200, message = "Success"),
+//		@ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class)
+//	})
+//	@GetMapping(path = "/{id:[\\d]+}/cpf/valido/{cpf}")
+//	public ResponseEntity<?> validarCpfUsuario(
+//			@ApiParam(value = "Código do Usuário") @PathVariable final BigDecimal id,
+//			@ApiParam(value = "CPF") @PathVariable final String cpf) {
+//		Validation.max("id", id, 99999999L);
+//		usuarioService.validarCpf(cpf, id.longValue());
+//		return ResponseEntity.ok().build();
+//	}
 }

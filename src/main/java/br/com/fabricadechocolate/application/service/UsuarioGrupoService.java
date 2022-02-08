@@ -1,7 +1,7 @@
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.repository.UsuarioGrupoRepository;
 import br.com.fabricadechocolate.application.model.Grupo;
+import br.com.fabricadechocolate.application.repository.UsuarioGrupoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

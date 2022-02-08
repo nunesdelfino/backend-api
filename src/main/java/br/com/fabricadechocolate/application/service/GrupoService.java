@@ -1,16 +1,16 @@
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.configuration.Constante;
-import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
-import br.com.fabricadechocolate.application.repository.GrupoFuncionalidadeRepository;
-import br.com.fabricadechocolate.application.repository.GrupoRepository;
-import br.com.fabricadechocolate.comum.exception.BusinessException;
-import br.com.fabricadechocolate.comum.util.CollectionUtil;
-import br.com.fabricadechocolate.comum.util.Util;
 import br.com.fabricadechocolate.application.dto.FiltroGrupoDTO;
 import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
 import br.com.fabricadechocolate.application.model.Grupo;
 import br.com.fabricadechocolate.application.model.GrupoFuncionalidade;
+import br.com.fabricadechocolate.comum.exception.BusinessException;
+import br.com.fabricadechocolate.comum.util.CollectionUtil;
+import br.com.fabricadechocolate.comum.util.Util;
+import br.com.fabricadechocolate.application.configuration.Constante;
+import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
+import br.com.fabricadechocolate.application.repository.GrupoFuncionalidadeRepository;
+import br.com.fabricadechocolate.application.repository.GrupoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

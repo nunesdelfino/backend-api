@@ -1,9 +1,9 @@
 package br.com.fabricadechocolate.application.repository.impl;
 
+import br.com.fabricadechocolate.application.dto.FiltroTamanhoDTO;
 import br.com.fabricadechocolate.application.model.Tamanho;
 import br.com.fabricadechocolate.application.repository.TamanhoRepositoryCustom;
 import br.com.fabricadechocolate.comum.util.Util;
-import br.com.fabricadechocolate.application.dto.FiltroTamanhoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

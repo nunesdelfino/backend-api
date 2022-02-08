@@ -8,7 +8,6 @@
  */
 package br.com.fabricadechocolate.application.controller;
 
-import br.com.fabricadechocolate.comum.util.Util;
 import br.com.fabricadechocolate.application.dto.AuthDTO;
 import br.com.fabricadechocolate.application.dto.CredencialDTO;
 import br.com.fabricadechocolate.application.dto.UsuarioDTO;
@@ -17,6 +16,7 @@ import br.com.fabricadechocolate.application.model.Usuario;
 import br.com.fabricadechocolate.application.service.AuthService;
 import br.com.fabricadechocolate.application.service.UsuarioService;
 import br.com.fabricadechocolate.comum.exception.MessageResponse;
+import br.com.fabricadechocolate.comum.util.Util;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,7 +51,7 @@ public class AuthController extends AbstractController {
 	@ApiOperation(value = "Concede o token de acesso ao Usuário através do 'login' e 'senha'.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses({ 
 			@ApiResponse(code = 200, message = "Success", response = CredencialDTO.class),
-			@ApiResponse(code = 403, message = "Proibido", response = MessageResponse.class), 
+			@ApiResponse(code = 403, message = "Proibido", response = MessageResponse.class),
 			@ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class)
 	})
 	@PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -128,6 +128,25 @@ public class AuthController extends AbstractController {
 		}
 		return response;
 	}
+	
+//	/**
+//	 * Realiza a solicitação de recuperar a senha do {@link Usuario}
+//	 *
+//	 * @param cpf -
+//	 * @return -
+//	 */
+//	@ApiOperation(value = "Realiza a solicitação de recuperar a senha do usuário.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	@ApiResponses({
+//		@ApiResponse(code = 200, message = "Success", response = UsuarioDTO.class),
+//		@ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class)
+//	})
+//	@GetMapping(path = "/senha/solicitacao/{cpf:[\\d]+}", produces = { MediaType.APPLICATION_JSON_VALUE })
+//	public ResponseEntity<?> recuperarSenha(
+//			@ApiParam(value = "CPF do Usuário", required = true) @PathVariable() final String cpf) {
+////		Usuario usuario = usuarioService.recuperarSenha(cpf);
+////		String email = Util.getEmailObfuscado(usuario.getEmail());
+////		return ResponseEntity.ok(new UsuarioSenhaDTO(email));
+//	}
 
 	/**
 	 * Valida o token de alteração de senha.

@@ -1,10 +1,10 @@
 package br.com.fabricadechocolate.application.model;
 
-import br.com.fabricadechocolate.application.configuration.Constante;
 import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
 import br.com.fabricadechocolate.application.enums.StatusSimNao;
 import br.com.fabricadechocolate.application.enums.converter.StatusAtivoInativoConverter;
 import br.com.fabricadechocolate.application.enums.converter.StatusSimNaoConverter;
+import br.com.fabricadechocolate.application.configuration.Constante;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -8,12 +8,12 @@
  */
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
-import br.com.fabricadechocolate.application.repository.ModuloRepository;
-import br.com.fabricadechocolate.comum.exception.BusinessException;
-import br.com.fabricadechocolate.comum.util.CollectionUtil;
 import br.com.fabricadechocolate.application.dto.ModuloDTO;
 import br.com.fabricadechocolate.application.model.Modulo;
+import br.com.fabricadechocolate.comum.exception.BusinessException;
+import br.com.fabricadechocolate.comum.util.CollectionUtil;
+import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
+import br.com.fabricadechocolate.application.repository.ModuloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

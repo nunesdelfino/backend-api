@@ -12,11 +12,11 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Size;
 
-import br.com.fabricadechocolate.application.model.TelefoneUsuario;
-import br.com.fabricadechocolate.comum.util.Util;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import br.com.fabricadechocolate.comum.util.Util;
+import br.com.fabricadechocolate.application.model.TelefoneUsuario;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

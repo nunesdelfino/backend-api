@@ -8,9 +8,9 @@
  */
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.configuration.Constante;
-import br.com.fabricadechocolate.application.security.TokenBuilder;
 import br.com.fabricadechocolate.application.dto.UsuarioSenhaDTO;
+import br.com.fabricadechocolate.application.configuration.Constante;
+import br.com.fabricadechocolate.application.security.TokenBuilder.TokenType;
 import com.auth0.jwt.interfaces.Claim;
 
 import java.util.Map;
@@ -93,33 +93,33 @@ public class AuthClaimResolve {
 	}
 
 	/**
-	 * @return Retorna o {@link TokenBuilder.TokenType} conforme o mapa de claims informado.
+	 * @return Retorna o {@link TokenType} conforme o mapa de claims informado.
 	 */
-	public TokenBuilder.TokenType getTokenType() {
-		TokenBuilder.TokenType type = null;
+	public TokenType getTokenType() {
+		TokenType type = null;
 		Claim claim = claims.get(Constante.PARAM_TYPE);
 
 		if (claim != null && !claim.isNull()) {
 			String value = claim.asString();
-			type = TokenBuilder.TokenType.valueOf(value);
+			type = TokenType.valueOf(value);
 		}
 		return type;
 	}
 
 	/**
-	 * @return Verifica se o {@link TokenBuilder.TokenType} é igual a 'ACCESS'.
+	 * @return Verifica se o {@link TokenType} é igual a 'ACCESS'.
 	 */
 	public boolean isTokenTypeAccess() {
-		TokenBuilder.TokenType type = getTokenType();
-		return TokenBuilder.TokenType.ACCESS.equals(type);
+		TokenType type = getTokenType();
+		return TokenType.ACCESS.equals(type);
 	}
 
 	/**
-	 * @return Verifica se o {@link TokenBuilder.TokenType} é igual a 'REFRESH'.
+	 * @return Verifica se o {@link TokenType} é igual a 'REFRESH'.
 	 */
 	public boolean isTokenTypeRefresh() {
-		TokenBuilder.TokenType type = getTokenType();
-		return TokenBuilder.TokenType.REFRESH.equals(type);
+		TokenType type = getTokenType();
+		return TokenType.REFRESH.equals(type);
 	}
 
 	/**

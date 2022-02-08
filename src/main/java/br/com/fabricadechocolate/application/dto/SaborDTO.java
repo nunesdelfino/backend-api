@@ -20,6 +20,5 @@ public @Data class SaborDTO implements Serializable {
     private String sabor;
 
     @ApiModelProperty(value = "sabor ativo")
-
     private String ativo;
 }
