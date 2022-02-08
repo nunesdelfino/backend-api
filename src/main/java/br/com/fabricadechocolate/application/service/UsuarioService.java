@@ -71,7 +71,7 @@ public class UsuarioService {
 			LocalDate dataCadastro = LocalDate.now();
 			usuario.setDataAtualizado(dataCadastro);
 			usuario.setDataCadastrado(dataCadastro);
-			usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
+//			usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
 
 //			grupoService = new GrupoService();
 //			Grupo g = grupoService.getGrupoByIdFetch(1L);
@@ -82,12 +82,19 @@ public class UsuarioService {
 			//usuario.setNome(user.getFirstName().concat(user.getLastName()));
 
 		} else {
+
 			Usuario vigente = getById(usuario.getId());
 
+			if(!usuario.getSenha().startsWith("$2a$10")){
+				usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
+			} else {
+				usuario.setSenha(vigente.getSenha());
+			}
+
 			usuario.setStatus(vigente.getStatus());
-			usuario.setSenha(vigente.getSenha());
 			usuario.setDataCadastrado(vigente.getDataCadastrado());
 			usuario.setDataAtualizado(LocalDate.now());
+
 		}
 
 		usuario = usuarioRepository.save(usuario);
@@ -138,6 +145,10 @@ public class UsuarioService {
 		}
 
 		if (Util.isEmpty(usuario.getNome())) {
+			invalido = Boolean.TRUE;
+		}
+
+		if (Util.isEmpty(usuario.getSenha())) {
 			invalido = Boolean.TRUE;
 		}
 

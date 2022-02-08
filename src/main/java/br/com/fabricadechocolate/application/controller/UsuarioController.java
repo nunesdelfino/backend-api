@@ -177,7 +177,7 @@ public class UsuarioController extends AbstractController {
 		List<UsuarioDTO> usuariosDTO = new ArrayList<>();
 		for (Usuario usuario: usuarios) {
 //			usuario.setTelefones(null);
-			usuariosDTO.add (usuarioMapper.toDTO(usuario));
+			usuariosDTO.add(usuarioMapper.toDTO(usuario));
 		}
 
 		return ResponseEntity.ok(usuariosDTO);
