@@ -11,6 +11,7 @@ package br.com.fabricadechocolate.application.service;
 import br.com.fabricadechocolate.application.dto.AuthDTO;
 import br.com.fabricadechocolate.application.dto.FiltroUsuarioDTO;
 import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
+import br.com.fabricadechocolate.application.model.Grupo;
 import br.com.fabricadechocolate.application.model.TelefoneUsuario;
 import br.com.fabricadechocolate.application.model.Usuario;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
@@ -30,7 +31,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Classe de négocio referente a entidade {@link Usuario}.
@@ -46,6 +49,8 @@ public class UsuarioService {
 
 	@Autowired
 	private EmailEngineService emailService;
+
+	private GrupoService grupoService;
 
 	@Autowired
 	private AuthService authService;
@@ -66,7 +71,14 @@ public class UsuarioService {
 			LocalDate dataCadastro = LocalDate.now();
 			usuario.setDataAtualizado(dataCadastro);
 			usuario.setDataCadastrado(dataCadastro);
-			usuario.setSenha(new BCryptPasswordEncoder().encode("123456"));
+			usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
+
+//			grupoService = new GrupoService();
+//			Grupo g = grupoService.getGrupoByIdFetch(1L);
+//			Set<UsuarioGrupo> usuarioGrupos = new HashSet<>();
+//			usuarioGrupos.add(new UsuarioGrupo(null,usuario,g));
+//			usuario.setGrupos(usuarioGrupos);
+//			usuario = usuarioRepository.save(usuario);
 			//usuario.setNome(user.getFirstName().concat(user.getLastName()));
 
 		} else {
@@ -125,8 +137,9 @@ public class UsuarioService {
 			invalido = Boolean.TRUE;
 		}
 
-		if (usuario.getGrupos() == null)
+		if (Util.isEmpty(usuario.getNome())) {
 			invalido = Boolean.TRUE;
+		}
 
 		if (invalido) {
 			throw new BusinessException(SistemaMessageCode.ERRO_CAMPOS_OBRIGATORIOS);
