@@ -45,56 +45,56 @@ public class EmailEngineService {
 	@Autowired
 	private KeyToken keyToken;
 
-	/**
-	 * Envia o e-mail de ativação do {@link Usuario}
-	 * 
-	 * @param usuario -
-	 */
-	public void enviarEmailAtivacaoUsuario(final Usuario usuario) {
-		try {
-			Map<String, Object> params = new HashMap<>();
-			params.put(Constante.PARAM_NAME, usuario.getNome());
-
-			String url = getURLValidacao(usuario, UsuarioSenhaDTO.TipoRedefinicaoSenha.ativacao);
-			params.put(Constante.PARAM_LINK, url);
-			Email mail = new Email();
-			mail.setSubject(Constante.CRIACAO_USUARIO_ASSUNTO);
-
-			Template template = freemarkerConfig.getTemplate(Constante.CRIACAO_USUARIO_TEMPLATE);
-			String body = FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
-			mail.setBody(body);
-
-			mail.addAddressTO(usuario.getEmail()).send();
-		} catch (EmailException | IOException | TemplateException e) {
-			throw new BusinessException(e);
-		}
-	}
-
-	/**
-	 * Envia o e-mail de esqueci a senha do {@link Usuario}
-	 * 
-	 * @param usuario -
-	 */
-	public void enviarEmailEsqueciSenha(final Usuario usuario) {
-		try {
-			Map<String, Object> params = new HashMap<>();
-			params.put(Constante.PARAM_NAME, usuario.getNome());
-
-			String url = getURLValidacao(usuario, UsuarioSenhaDTO.TipoRedefinicaoSenha.recuperacao);
-			params.put(Constante.PARAM_LINK, url);
-
-			Email mail = new Email();
-			mail.setSubject(Constante.ESQUECI_SENHA_ASSUNTO);
-
-			Template template = freemarkerConfig.getTemplate(Constante.ESQUECI_SENHA_TEMPLATE);
-			String body = FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
-			mail.setBody(body);
-
-			mail.addAddressTO(usuario.getEmail()).send();
-		} catch (EmailException | IOException | TemplateException e) {
-			throw new BusinessException(e);
-		}
-	}
+//	/**
+//	 * Envia o e-mail de ativação do {@link Usuario}
+//	 *
+//	 * @param usuario -
+//	 */
+//	public void enviarEmailAtivacaoUsuario(final Usuario usuario) {
+//		try {
+//			Map<String, Object> params = new HashMap<>();
+//			params.put(Constante.PARAM_NAME, usuario.getNome());
+//
+//			String url = getURLValidacao(usuario, UsuarioSenhaDTO.TipoRedefinicaoSenha.ativacao);
+//			params.put(Constante.PARAM_LINK, url);
+//			Email mail = new Email();
+//			mail.setSubject(Constante.CRIACAO_USUARIO_ASSUNTO);
+//
+//			Template template = freemarkerConfig.getTemplate(Constante.CRIACAO_USUARIO_TEMPLATE);
+//			String body = FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
+//			mail.setBody(body);
+//
+//			mail.addAddressTO(usuario.getEmail()).send();
+//		} catch (EmailException | IOException | TemplateException e) {
+//			throw new BusinessException(e);
+//		}
+//	}
+//
+//	/**
+//	 * Envia o e-mail de esqueci a senha do {@link Usuario}
+//	 *
+//	 * @param usuario -
+//	 */
+//	public void enviarEmailEsqueciSenha(final Usuario usuario) {
+//		try {
+//			Map<String, Object> params = new HashMap<>();
+//			params.put(Constante.PARAM_NAME, usuario.getNome());
+//
+//			String url = getURLValidacao(usuario, UsuarioSenhaDTO.TipoRedefinicaoSenha.recuperacao);
+//			params.put(Constante.PARAM_LINK, url);
+//
+//			Email mail = new Email();
+//			mail.setSubject(Constante.ESQUECI_SENHA_ASSUNTO);
+//
+//			Template template = freemarkerConfig.getTemplate(Constante.ESQUECI_SENHA_TEMPLATE);
+//			String body = FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
+//			mail.setBody(body);
+//
+//			mail.addAddressTO(usuario.getEmail()).send();
+//		} catch (EmailException | IOException | TemplateException e) {
+//			throw new BusinessException(e);
+//		}
+//	}
 
 	/**
 	 * Retorna a URL de ativação do {@link Usuario}

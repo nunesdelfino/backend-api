@@ -58,7 +58,7 @@ public class UsuarioService {
      */
 	public Usuario salvar(Usuario usuario) {
 		validarCamposObrigatorios(usuario);
-		validarUsuarioDuplicadoPorCpf(usuario);
+//		validarUsuarioDuplicadoPorCpf(usuario);
 
 		if (usuario.getId() == null) {
 
@@ -82,35 +82,35 @@ public class UsuarioService {
 		return usuario;
 	}
 
-	/**
-	 * Configura o {@link Usuario} dentro de {@link UsuarioGrupo} e {@link TelefoneUsuario} para salvar.
-	 * 
-	 * @param usuario
-	 */
-	public void configurarUsuarioGruposAndTelefones(Usuario usuario) {
-		for (UsuarioGrupo usuarioGrupo : usuario.getGrupos()) {
-			usuarioGrupo.setUsuario(usuario);
-		}
+//	/**
+//	 * Configura o {@link Usuario} dentro de {@link UsuarioGrupo} e {@link TelefoneUsuario} para salvar.
+//	 *
+//	 * @param usuario
+//	 */
+//	public void configurarUsuarioGruposAndTelefones(Usuario usuario) {
+//		for (UsuarioGrupo usuarioGrupo : usuario.getGrupos()) {
+//			usuarioGrupo.setUsuario(usuario);
+//		}
+//
+//		for (TelefoneUsuario telefoneUsuario : usuario.getTelefones()) {
+//			telefoneUsuario.setUsuario(usuario);
+//		}
+//	}
 
-		for (TelefoneUsuario telefoneUsuario : usuario.getTelefones()) {
-			telefoneUsuario.setUsuario(usuario);
-		}
-	}
-
-    /**
-     * Verifica a existencia de {@link Usuario} acordo com o 'cpf' informado.
-     *
-     * @param usuario
-     */
-	private void validarUsuarioDuplicadoPorCpf(final Usuario usuario) {
-		Long count = usuarioRepository.countByCpf(usuario.getCpf());
-
-		if ( (count > BigDecimal.ONE.longValue() && usuario.getId()!=null) ||
-				(count > BigDecimal.ZERO.longValue() && usuario.getId()==null)
-		) {
-			throw new BusinessException(SistemaMessageCode.ERRO_LOGIN_DUPLICADO);
-		}
-	}
+//    /**
+//     * Verifica a existencia de {@link Usuario} acordo com o 'cpf' informado.
+//     *
+//     * @param usuario
+//     */
+//	private void validarUsuarioDuplicadoPorCpf(final Usuario usuario) {
+//		Long count = usuarioRepository.countByCpf(usuario.getCpf());
+//
+//		if ( (count > BigDecimal.ONE.longValue() && usuario.getId()!=null) ||
+//				(count > BigDecimal.ZERO.longValue() && usuario.getId()==null)
+//		) {
+//			throw new BusinessException(SistemaMessageCode.ERRO_LOGIN_DUPLICADO);
+//		}
+//	}
 
 
     /**
@@ -275,44 +275,44 @@ public class UsuarioService {
 		return usuarioRepository.save(usuario);
 	}
 
-	/**
-	 * Retorna a instância de {@link Usuario} conforme o 'cpf' informado.
-	 * 
-	 * @param cpf
-	 * @return
-	 */
-	public Usuario findByCpfUsuario(final String cpf) {
-		return usuarioRepository.findByCpf(cpf);
-	}
+//	/**
+//	 * Retorna a instância de {@link Usuario} conforme o 'cpf' informado.
+//	 *
+//	 * @param cpf
+//	 * @return
+//	 */
+//	public Usuario findByCpfUsuario(final String cpf) {
+//		return usuarioRepository.findByCpf(cpf);
+//	}
 
-	/**
-	 * Retorna a instância do {@link Usuario} conforme o 'cpf' informado
-	 * e que não tenha o 'id' informado.
-	 * 
-	 * @param cpf
-	 * @param id
-	 * @return
-	 */
-	public Usuario findByCpfUsuarioAndNotId(final String cpf, final Long id) {
-		return usuarioRepository.findByCpfAndNotId(cpf, id);
-	}
+//	/**
+//	 * Retorna a instância do {@link Usuario} conforme o 'cpf' informado
+//	 * e que não tenha o 'id' informado.
+//	 *
+//	 * @param cpf
+//	 * @param id
+//	 * @return
+//	 */
+//	public Usuario findByCpfUsuarioAndNotId(final String cpf, final Long id) {
+//		return usuarioRepository.findByCpfAndNotId(cpf, id);
+//	}
 
-    /**
-     * Solicita a recuperação de senha do {@link Usuario}.
-     *
-     * @param cpf -
-     * @return -
-     */
-	public Usuario recuperarSenha(final String cpf) {
-		Usuario usuario = findByCpfUsuario(cpf);
-
-		if (usuario == null) {
-			throw new BusinessException(SistemaMessageCode.ERRO_USUARIO_NAO_ENCONTRADO);
-		}
-
-		emailService.enviarEmailEsqueciSenha(usuario);
-		return usuario;
-	}
+//    /**
+//     * Solicita a recuperação de senha do {@link Usuario}.
+//     *
+//     * @param cpf -
+//     * @return -
+//     */
+//	public Usuario recuperarSenha(final String cpf) {
+//		Usuario usuario = findByCpfUsuario(cpf);
+//
+//		if (usuario == null) {
+//			throw new BusinessException(SistemaMessageCode.ERRO_USUARIO_NAO_ENCONTRADO);
+//		}
+//
+//		emailService.enviarEmailEsqueciSenha(usuario);
+//		return usuario;
+//	}
 
     /**
      * Inativa o {@link Usuario}.
@@ -353,36 +353,36 @@ public class UsuarioService {
 		return valido;
 	}
 
-	/**
-	 * Verifica se o CPF informado é válido e se está em uso.
-	 * 
-	 * @param cpf
-	 */
-	public void validarCpf(final String cpf) {
-		validarCpf(cpf, null);
-	}
-
-	/**
-	 * Verifica se o CPF informado é válido e se está em uso.
-	 * 
-	 * @param cpf
-	 * @param id
-	 */
-	public void validarCpf(final String cpf, final Long id) {
-		if (!isCpfValido(cpf)) {
-			throw new BusinessException(SistemaMessageCode.ERRO_CPF_INVALIDO);
-		}
-
-		Usuario usuario;
-
-		if (id == null) {
-			usuario = findByCpfUsuario(cpf);
-		} else {
-			usuario = findByCpfUsuarioAndNotId(cpf, id);
-		}
-
-		if (usuario != null) {
-			throw new BusinessException(SistemaMessageCode.ERRO_CPF_EM_USO);
-		}
-	}
+//	/**
+//	 * Verifica se o CPF informado é válido e se está em uso.
+//	 *
+//	 * @param cpf
+//	 */
+//	public void validarCpf(final String cpf) {
+//		validarCpf(cpf, null);
+//	}
+//
+//	/**
+//	 * Verifica se o CPF informado é válido e se está em uso.
+//	 *
+//	 * @param cpf
+//	 * @param id
+//	 */
+//	public void validarCpf(final String cpf, final Long id) {
+//		if (!isCpfValido(cpf)) {
+//			throw new BusinessException(SistemaMessageCode.ERRO_CPF_INVALIDO);
+//		}
+//
+//		Usuario usuario;
+//
+//		if (id == null) {
+//			usuario = findByCpfUsuario(cpf);
+//		} else {
+//			usuario = findByCpfUsuarioAndNotId(cpf, id);
+//		}
+//
+//		if (usuario != null) {
+//			throw new BusinessException(SistemaMessageCode.ERRO_CPF_EM_USO);
+//		}
+//	}
 }

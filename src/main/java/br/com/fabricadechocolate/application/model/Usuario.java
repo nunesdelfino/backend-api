@@ -45,8 +45,8 @@ public @Data class Usuario implements Serializable{
 	@Column(name = "DATA_CADASTRADO", nullable = false)
 	private LocalDate dataCadastrado;
 
-	@Column(name = "EMAIL", length = 75, nullable = false)
-	private String email;
+//	@Column(name = "EMAIL", length = 75, nullable = false)
+//	private String email;
 
 	// https://docs.microsoft.com/pt-br/windows/win32/adschema/a-samaccountname?redirectedfrom=MSDN
 	@Column(name = "LOGIN_USUARIO", length = 20, nullable = false)
@@ -58,8 +58,8 @@ public @Data class Usuario implements Serializable{
 	@Column(name = "NOME_USUARIO", length = 65, nullable = false)
 	private String nome;
 
-	@Column(name = "NUMR_CPF", length = 14, nullable = false)
-	private String cpf;
+//	@Column(name = "NUMR_CPF", length = 14, nullable = false)
+//	private String cpf;
 
 	@Convert(converter = StatusAtivoInativoConverter.class)
 	@Column(name = "STAT_USUARIO", nullable = false, length = 1)
@@ -92,9 +92,9 @@ public @Data class Usuario implements Serializable{
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<UsuarioGrupo> grupos;
 
-	@EqualsAndHashCode.Exclude
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<TelefoneUsuario> telefones;
+//	@EqualsAndHashCode.Exclude
+//	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//	private Set<TelefoneUsuario> telefones;
 
 	/**
 	 * Verifica se o Status do Usuário é igual a 'Ativo'.

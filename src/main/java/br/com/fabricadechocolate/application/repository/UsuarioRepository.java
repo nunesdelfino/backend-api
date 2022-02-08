@@ -33,26 +33,26 @@ public interface UsuarioRepository extends UsuarioRepositoryCustom, JpaRepositor
 	 */
 	public Usuario findByLogin(final String login);
 
-	/**
-	 * Retorna a instância do {@link Usuario} conforme o 'cpf' informado.
-	 * 
-	 * @param cpf
-	 * @return
-	 */
-	public Usuario findByCpf(final String cpf);
-
-	/**
-	 * Retorna a instância do {@link Usuario} conforme o 'cpf' informado
-	 * e que não tenha o 'id' informado.
-	 * 
-	 * @param cpf
-	 * @param id
-	 * @return
-	 */
-	@Query(" SELECT usuario FROM Usuario usuario "
-			+ " WHERE usuario.cpf = :cpf "
-			+ " AND (:id IS NULL OR usuario.id != :id)")
-	public Usuario findByCpfAndNotId(@Param("cpf") final String cpf, @Param("id") final Long id);
+//	/**
+//	 * Retorna a instância do {@link Usuario} conforme o 'cpf' informado.
+//	 *
+//	 * @param cpf
+//	 * @return
+//	 */
+//	public Usuario findByCpf(final String cpf);
+//
+//	/**
+//	 * Retorna a instância do {@link Usuario} conforme o 'cpf' informado
+//	 * e que não tenha o 'id' informado.
+//	 *
+//	 * @param cpf
+//	 * @param id
+//	 * @return
+//	 */
+//	@Query(" SELECT usuario FROM Usuario usuario "
+//			+ " WHERE usuario.cpf = :cpf "
+//			+ " AND (:id IS NULL OR usuario.id != :id)")
+//	public Usuario findByCpfAndNotId(@Param("cpf") final String cpf, @Param("id") final Long id);
 
 	/**
 	 * Retorna uma instância de {@link Usuario} conforme o 'id' informado.
@@ -62,18 +62,18 @@ public interface UsuarioRepository extends UsuarioRepositoryCustom, JpaRepositor
 	 */
 	@Query(" SELECT usuario FROM Usuario usuario LEFT JOIN FETCH usuario.grupos usuarioGrupo "
 			+ " LEFT JOIN FETCH usuarioGrupo.grupo grupo "
-			+ " LEFT JOIN FETCH usuario.telefones telefone "
+//			+ " LEFT JOIN FETCH usuario.telefones telefone "
 			+ " WHERE usuario.id = :id ")
 	public Optional<Usuario> findByIdFetch(@Param("id") final Long id);
 
 
-	/**
-	 * Retorna o total de Usuários encontrados na base de dados conforme o cpf
-	 * informado.
-	 *
-	 * @param cpf cpf do usuário
-	 * @return
-	 */
-	public Long countByCpf(final String cpf);
+//	/**
+//	 * Retorna o total de Usuários encontrados na base de dados conforme o cpf
+//	 * informado.
+//	 *
+//	 * @param cpf cpf do usuário
+//	 * @return
+//	 */
+//	public Long countByCpf(final String cpf);
 
 }

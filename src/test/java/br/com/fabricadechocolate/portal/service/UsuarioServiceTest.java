@@ -67,29 +67,29 @@ public class UsuarioServiceTest {
 		usuarioService.salvar(usuario);
 	}
 
-	/**
-	 * Teste do método que persiste os dados do {@link Usuario}.
-	 * Caso em que existe mais de um Usuário com o CPF informado.
-	 */
-	@Test(expected = BusinessException.class)
-	public void salvarUsuarioDuplicadoPorCpf() {
-		Usuario usuario = getUsuarioNovoMock();
-		when(usuarioRepository.countByCpf(usuario.getCpf())).thenReturn(2L);
-		usuarioService.salvar(usuario);
-	}
+//	/**
+//	 * Teste do método que persiste os dados do {@link Usuario}.
+//	 * Caso em que existe mais de um Usuário com o CPF informado.
+//	 */
+////	@Test(expected = BusinessException.class)
+//	public void salvarUsuarioDuplicadoPorCpf() {
+//		Usuario usuario = getUsuarioNovoMock();
+//		when(usuarioRepository.countByCpf(usuario.getCpf())).thenReturn(2L);
+//		usuarioService.salvar(usuario);
+//	}
 
-	/**
-	 * Teste do método que persiste os dados do {@link Usuario}.
-	 * Caso de Inclusão em que o Código do KeyCloak já está cadastrado.
-	 */
-	@Test(expected = BusinessException.class)
-	public void salvarInclusaoLoginDuplicado() {
-		Usuario usuario = getUsuarioNovoMock();
-		usuario.setId(null);
-
-		when(usuarioRepository.countByCpf(usuario.getCpf())).thenReturn(1L);
-		usuarioService.salvar(usuario);
-	}
+//	/**
+//	 * Teste do método que persiste os dados do {@link Usuario}.
+//	 * Caso de Inclusão em que o Código do KeyCloak já está cadastrado.
+//	 */
+//	@Test(expected = BusinessException.class)
+//	public void salvarInclusaoLoginDuplicado() {
+//		Usuario usuario = getUsuarioNovoMock();
+//		usuario.setId(null);
+//
+//		when(usuarioRepository.countByCpf(usuario.getCpf())).thenReturn(1L);
+//		usuarioService.salvar(usuario);
+//	}
 
 	/**
 	 * Teste do método que persiste os dados do {@link Usuario}.
@@ -100,7 +100,7 @@ public class UsuarioServiceTest {
 		Usuario usuario = getUsuarioNovoMock();
 		usuario.setId(null);
 
-		when(usuarioRepository.countByCpf(usuario.getCpf())).thenReturn(0L);
+//		when(usuarioRepository.countByCpf(usuario.getCpf())).thenReturn(0L);
 		usuarioService.salvar(usuario);
 
 		String nome = usuario.getNome();
@@ -119,7 +119,7 @@ public class UsuarioServiceTest {
 		Usuario novo = getUsuarioNovoMock();
 		Usuario vigente = getUsuarioVigenteMock();
 
-		when(usuarioRepository.countByCpf(novo.getCpf())).thenReturn(0L);
+//		when(usuarioRepository.countByCpf(novo.getCpf())).thenReturn(0L);
 		when(usuarioRepository.findById(novo.getId())).thenReturn(Optional.of(vigente));
 		when(usuarioRepository.save(novo)).thenReturn(novo);
 		Usuario retorno = usuarioService.salvar(novo);
@@ -136,13 +136,13 @@ public class UsuarioServiceTest {
 	@Test
 	public void configurarUsuarioGruposAndTelefones() {
 		Usuario usuario = getUsuarioNovoMock();
-		usuarioService.configurarUsuarioGruposAndTelefones(usuario);
+//		usuarioService.configurarUsuarioGruposAndTelefones(usuario);
 
 		UsuarioGrupo grupo = usuario.getGrupos().stream().findFirst().orElse(null);
 		assertEquals(usuario, grupo.getUsuario());
 
-		TelefoneUsuario telefone = usuario.getTelefones().stream().findFirst().orElse(null);
-		assertEquals(usuario, telefone.getUsuario());
+//		TelefoneUsuario telefone = usuario.getTelefones().stream().findFirst().orElse(null);
+//		assertEquals(usuario, telefone.getUsuario());
 	}
 
 	/**
@@ -377,58 +377,58 @@ public class UsuarioServiceTest {
 		assertTrue(retorno.isStatusAtivo());
 	}
 
-	/**
-	 * Teste do método que retorna a instância de {@link Usuario} conforme o 'cpf' informado.
-	 */
-	@Test
-	public void findByCpfUsuario() {
-		String cpf = "65357952094";
-		Usuario usuario = getUsuarioNovoMock();
+//	/**
+//	 * Teste do método que retorna a instância de {@link Usuario} conforme o 'cpf' informado.
+//	 */
+//	@Test
+//	public void findByCpfUsuario() {
+//		String cpf = "65357952094";
+//		Usuario usuario = getUsuarioNovoMock();
+//
+////		when(usuarioRepository.findByCpf(cpf)).thenReturn(usuario);
+////		Usuario retorno = usuarioService.findByCpfUsuario(cpf);
+////		assertEquals(usuario, retorno);
+//	}
 
-		when(usuarioRepository.findByCpf(cpf)).thenReturn(usuario);
-		Usuario retorno = usuarioService.findByCpfUsuario(cpf);
-		assertEquals(usuario, retorno);
-	}
+//	/**
+//	 * Teste do método que retorna a instância do {@link Usuario} conforme o 'cpf' informado
+//	 * e que não tenha o 'id' informado.
+//	 */
+//	@Test
+//	public void findByCpfUsuarioAndNotId() {
+//		Long id = 1L;
+//		String cpf = "65357952094";
+//		Usuario usuario = getUsuarioNovoMock();
+//
+//		when(usuarioRepository.findByCpfAndNotId(cpf, id)).thenReturn(usuario);
+//		Usuario retorno = usuarioService.findByCpfUsuarioAndNotId(cpf, id);
+//		assertEquals(usuario, retorno);
+//	}
 
-	/**
-	 * Teste do método que retorna a instância do {@link Usuario} conforme o 'cpf' informado
-	 * e que não tenha o 'id' informado.
-	 */
-	@Test
-	public void findByCpfUsuarioAndNotId() {
-		Long id = 1L;
-		String cpf = "65357952094";
-		Usuario usuario = getUsuarioNovoMock();
+//	/**
+//	 * Teste do método que solicita a recuperação de senha do {@link Usuario}.
+//	 * Caso em que o Usuário não é encontrado.
+//	 */
+//	@Test(expected = BusinessException.class)
+//	public void recuperarSenhaUsuarioNaoEncontrado() {
+//		String cpf = "65357952094";
+//		when(usuarioRepository.findByCpf(cpf)).thenReturn(null);
+//		usuarioService.recuperarSenha(cpf);
+//	}
 
-		when(usuarioRepository.findByCpfAndNotId(cpf, id)).thenReturn(usuario);
-		Usuario retorno = usuarioService.findByCpfUsuarioAndNotId(cpf, id);
-		assertEquals(usuario, retorno);
-	}
-
-	/**
-	 * Teste do método que solicita a recuperação de senha do {@link Usuario}.
-	 * Caso em que o Usuário não é encontrado.
-	 */
-	@Test(expected = BusinessException.class)
-	public void recuperarSenhaUsuarioNaoEncontrado() {
-		String cpf = "65357952094";
-		when(usuarioRepository.findByCpf(cpf)).thenReturn(null);
-		usuarioService.recuperarSenha(cpf);
-	}
-
-	/**
-	 * Teste do método que solicita a recuperação de senha do {@link Usuario}.
-	 * Caso em que a solicitação é feita com sucesso.
-	 */
-	@Test
-	public void recuperarSenha() {
-		String cpf = "65357952094";
-		Usuario usuario = getUsuarioNovoMock();
-
-		when(usuarioRepository.findByCpf(cpf)).thenReturn(usuario);
-		Usuario retorno = usuarioService.recuperarSenha(cpf);
-		assertEquals(usuario, retorno);
-	}
+//	/**
+//	 * Teste do método que solicita a recuperação de senha do {@link Usuario}.
+//	 * Caso em que a solicitação é feita com sucesso.
+//	 */
+//	@Test
+//	public void recuperarSenha() {
+//		String cpf = "65357952094";
+//		Usuario usuario = getUsuarioNovoMock();
+//
+//		when(usuarioRepository.findByCpf(cpf)).thenReturn(usuario);
+//		Usuario retorno = usuarioService.recuperarSenha(cpf);
+//		assertEquals(usuario, retorno);
+//	}
 
 
 
@@ -462,75 +462,75 @@ public class UsuarioServiceTest {
 		assertTrue(retorno.isStatusAtivo());
 	}
 
-	/**
-	 * Teste do método que verifica se o CPF informado é válido e se está em uso.
-	 * Caso em que o CPF não foi preenchido.
-	 */
-	@Test(expected = BusinessException.class)
-	public void validarCpfNaoPreenchido() {
-		String cpf = null;
-		usuarioService.validarCpf(cpf);
-	}
+//	/**
+//	 * Teste do método que verifica se o CPF informado é válido e se está em uso.
+//	 * Caso em que o CPF não foi preenchido.
+//	 */
+//	@Test(expected = BusinessException.class)
+//	public void validarCpfNaoPreenchido() {
+//		String cpf = null;
+//		usuarioService.validarCpf(cpf);
+//	}
+//
+//	/**
+//	 * Teste do método que verifica se o CPF informado é válido e se está em uso.
+//	 * Caso em que o CPF é inválido.
+//	 */
+//	@Test(expected = BusinessException.class)
+//	public void validarCpfInvalido() {
+//		String cpf = "12345678901";
+//		usuarioService.validarCpf(cpf);
+//	}
+//
+//	/**
+//	 * Teste do método que verifica se o CPF informado é válido e se está em uso.
+//	 * Caso em que o CPF é válido e está em uso.
+//	 */
+//	@Test(expected = BusinessException.class)
+//	public void validarCpfEmUso() {
+//		String cpf = "65357952094";
+//
+//		when(usuarioRepository.findByCpf(cpf)).thenReturn(getUsuarioNovoMock());
+//		usuarioService.validarCpf(cpf);
+//	}
+//
+//	/**
+//	 * Teste do método que verifica se o CPF informado é válido e se está em uso.
+//	 * Caso em que o CPF é válido e não está em uso.
+//	 */
+//	@Test
+//	public void validarCpfValido() {
+//		String cpf = "65357952094";
+//
+//		when(usuarioRepository.findByCpf(cpf)).thenReturn(null);
+//		usuarioService.validarCpf(cpf);
+//	}
 
-	/**
-	 * Teste do método que verifica se o CPF informado é válido e se está em uso.
-	 * Caso em que o CPF é inválido.
-	 */
-	@Test(expected = BusinessException.class)
-	public void validarCpfInvalido() {
-		String cpf = "12345678901";
-		usuarioService.validarCpf(cpf);
-	}
+//	/**
+//	 * Teste do método que verifica se o CPF informado é válido e se está em uso.
+//	 * Caso em que o CPF é válido e está em uso.
+//	 */
+//	@Test
+//	public void validarCpfEmUsoNotId() {
+//		Long id = 1L;
+//		String cpf = "65357952094";
+//
+//		when(usuarioRepository.findByCpf(cpf)).thenReturn(getUsuarioNovoMock());
+//		usuarioService.validarCpf(cpf, id);
+//	}
 
-	/**
-	 * Teste do método que verifica se o CPF informado é válido e se está em uso.
-	 * Caso em que o CPF é válido e está em uso.
-	 */
-	@Test(expected = BusinessException.class)
-	public void validarCpfEmUso() {
-		String cpf = "65357952094";
-
-		when(usuarioRepository.findByCpf(cpf)).thenReturn(getUsuarioNovoMock());
-		usuarioService.validarCpf(cpf);
-	}
-
-	/**
-	 * Teste do método que verifica se o CPF informado é válido e se está em uso.
-	 * Caso em que o CPF é válido e não está em uso.
-	 */
-	@Test
-	public void validarCpfValido() {
-		String cpf = "65357952094";
-
-		when(usuarioRepository.findByCpf(cpf)).thenReturn(null);
-		usuarioService.validarCpf(cpf);
-	}
-
-	/**
-	 * Teste do método que verifica se o CPF informado é válido e se está em uso.
-	 * Caso em que o CPF é válido e está em uso.
-	 */
-	@Test
-	public void validarCpfEmUsoNotId() {
-		Long id = 1L;
-		String cpf = "65357952094";
-
-		when(usuarioRepository.findByCpf(cpf)).thenReturn(getUsuarioNovoMock());
-		usuarioService.validarCpf(cpf, id);
-	}
-
-	/**
-	 * Teste do método que verifica se o CPF informado é válido e se está em uso.
-	 * Caso em que o CPF é válido e não está em uso.
-	 */
-	@Test
-	public void validarCpfValidoNotId() {
-		Long id = 1L;
-		String cpf = "65357952094";
-
-		when(usuarioRepository.findByCpf(cpf)).thenReturn(null);
-		usuarioService.validarCpf(cpf, id);
-	}
+//	/**
+//	 * Teste do método que verifica se o CPF informado é válido e se está em uso.
+//	 * Caso em que o CPF é válido e não está em uso.
+//	 */
+//	@Test
+//	public void validarCpfValidoNotId() {
+//		Long id = 1L;
+//		String cpf = "65357952094";
+//
+//		when(usuarioRepository.findByCpf(cpf)).thenReturn(null);
+//		usuarioService.validarCpf(cpf, id);
+//	}
 
 	/**
 	 * Retorna a instância Mock de um novo {@link Usuario}.
@@ -542,19 +542,19 @@ public class UsuarioServiceTest {
 		usuario.setId(1L);
 		usuario.setNome("Nome do Usuário");
 		usuario.setLogin("user.name");
-		usuario.setCpf("12345678901");
+//		usuario.setCpf("12345678901");
 		usuario.setSenha("oldPassword");
 
 		UsuarioGrupo usuarioGrupo = new UsuarioGrupo();
 		Set<UsuarioGrupo> grupos = new HashSet<UsuarioGrupo>();
 		grupos.add(usuarioGrupo);
 
-		TelefoneUsuario telefoneUsuario = new TelefoneUsuario();
-		Set<TelefoneUsuario> telefones = new HashSet<TelefoneUsuario>();
-		telefones.add(telefoneUsuario);
+//		TelefoneUsuario telefoneUsuario = new TelefoneUsuario();
+//		Set<TelefoneUsuario> telefones = new HashSet<TelefoneUsuario>();
+//		telefones.add(telefoneUsuario);
 
 		usuario.setGrupos(grupos);
-		usuario.setTelefones(telefones);
+//		usuario.setTelefones(telefones);
 
 		return usuario;
 	}
