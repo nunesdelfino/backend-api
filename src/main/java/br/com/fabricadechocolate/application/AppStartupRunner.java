@@ -3,9 +3,7 @@ package br.com.fabricadechocolate.application;
 import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
 import br.com.fabricadechocolate.application.enums.StatusSimNao;
 import br.com.fabricadechocolate.application.model.*;
-import br.com.fabricadechocolate.application.repository.GrupoRepository;
-import br.com.fabricadechocolate.application.repository.ModuloRepository;
-import br.com.fabricadechocolate.application.repository.UsuarioRepository;
+import br.com.fabricadechocolate.application.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +46,12 @@ public class AppStartupRunner implements ApplicationRunner {
     GrupoRepository grupoRepository;
 
     @Autowired
+    TamanhoRepository tamanhoRepository;
+
+    @Autowired
+    SaborRepository saborRepository;
+
+    @Autowired
     UsuarioRepository usuarioRepository;
 
     @Override
@@ -61,6 +65,8 @@ public class AppStartupRunner implements ApplicationRunner {
                 this.ddlAuto.trim().equals(UPDATE)
         ){
             this.initiateDemoInstance();
+            this.createTamanho();
+            this.createSabor();
         }
     }
 
@@ -74,6 +80,24 @@ public class AppStartupRunner implements ApplicationRunner {
 
         createUsuarioAdmin(grupo);
 
+    }
+
+    private void createTamanho() {
+        Tamanho t = new Tamanho();
+
+        t.setTamanho("100");
+        t.setAtivo("S");
+
+        t = tamanhoRepository.save(t);
+    }
+
+    private void createSabor() {
+        Sabor s = new Sabor();
+
+        s.setSabor("Brigadeiro");
+        s.setAtivo("S");
+
+        s = saborRepository.save(s);
     }
 
     /**
@@ -160,6 +184,7 @@ public class AppStartupRunner implements ApplicationRunner {
         usuario.setLogin("admin");
         usuario.setNome("Administrador");
 //        usuario.setEmail("admin@teste.com.br");
+        // TODO
         usuario.setSenha(new BCryptPasswordEncoder().encode("admin"));
 
         usuario = usuarioRepository.save(usuario);
