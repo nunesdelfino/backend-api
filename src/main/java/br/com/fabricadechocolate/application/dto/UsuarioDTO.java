@@ -56,6 +56,10 @@ public @Data class UsuarioDTO implements Serializable {
 	@ApiModelProperty(value = "Login do Usuário")
 	private String login;
 
+	@Size(max = 250)
+	@ApiModelProperty(value = "Senha do Usuário")
+	private String senha;
+
 	@Size(max = 65)
 	@ApiModelProperty(value = "Nome do Usuário")
 	private String nome;

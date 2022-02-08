@@ -47,6 +47,11 @@ public class PedidoRepositoryImpl implements PedidoRepositoryCustom {
             parametros.put("status", filtroPedidoDTO.getStatus());
         }
 
+        if (filtroPedidoDTO.getDataEntrega() != null) {
+            jpql.append(" AND pedido.dataEntrega = :dataEntrega ");
+            parametros.put("dataEntrega", filtroPedidoDTO.getDataEntrega());
+        }
+
         TypedQuery<Pedido> query = entityManager.createQuery(jpql.toString(), Pedido.class);
         parametros.entrySet().forEach(parametro -> query.setParameter(parametro.getKey(), parametro.getValue()));
         return query.getResultList();
