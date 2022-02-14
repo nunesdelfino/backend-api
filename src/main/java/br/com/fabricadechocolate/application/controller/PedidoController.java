@@ -140,6 +140,23 @@ public class PedidoController extends AbstractController {
         return ResponseEntity.ok(pedidoDTOS);
     }
 
+    @ApiOperation(value = "Retorna uma lista de Pedido cadastrados e ativos.", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = PedidoDTO.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
+            @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
+    })
+    @GetMapping(path = "/aceitos-pendentes", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> getAceitosPendentes() {
+        List<Pedido> pedidos = pedidoService.getAceitosPendentes();
+        List<PedidoDTO> pedidoDTOS = new ArrayList<>();
+        for (Pedido pedido : pedidos) {
+            PedidoDTO pedidoDTO = pedidoMapper.toDTO(pedido);
+            pedidoDTOS.add(pedidoDTO);
+        }
+        return ResponseEntity.ok(pedidoDTOS);
+    }
+
     /**
      * Remover o {@link Pedido} pelo 'id' informado.
      *
