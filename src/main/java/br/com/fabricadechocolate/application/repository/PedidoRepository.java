@@ -62,4 +62,34 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long>, PedidoRep
             " WHERE pedido.id = :idPedido ")
     public Optional<Pedido> findByIdFetch( @Param("idPedido") final Long idPedido);
 
+    /**
+     * Listar todos os Pedidos Entrgues
+     * @return
+     */
+    @Query("SELECT pedido from Pedido pedido " +
+            " INNER JOIN FETCH pedido.tamanho tamanho " +
+            " INNER JOIN FETCH pedido.saborUm sabor " +
+            " LEFT JOIN FETCH pedido.saborDois sabor " +
+            " LEFT JOIN FETCH pedido.saborTres sabor " +
+            " LEFT JOIN FETCH pedido.saborQuatro sabor " +
+            " LEFT JOIN FETCH pedido.saborCinco sabor " +
+            " WHERE pedido.statusEntrega = true"
+    )
+    public List<Pedido> listarEntregues();
+
+    /**
+     * Listar todos os Pedidos Entregues
+     * @return
+     */
+    @Query("SELECT pedido from Pedido pedido " +
+            " INNER JOIN FETCH pedido.tamanho tamanho " +
+            " INNER JOIN FETCH pedido.saborUm sabor " +
+            " LEFT JOIN FETCH pedido.saborDois sabor " +
+            " LEFT JOIN FETCH pedido.saborTres sabor " +
+            " LEFT JOIN FETCH pedido.saborQuatro sabor " +
+            " LEFT JOIN FETCH pedido.saborCinco sabor " +
+            " WHERE pedido.statusEntrega = false"
+    )
+    public List<Pedido> listarNaoEntregues();
+
 }

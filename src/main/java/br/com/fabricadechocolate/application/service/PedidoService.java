@@ -267,6 +267,7 @@ public class PedidoService {
         if(pedido.getId() == null && Util.isEmpty(pedido.getStatus())){
             pedido.setStatus("pendente");
             pedido.setEntregar(StatusSimNao.SIM);
+            pedido.setStatusEntrega(false);
 
             //Adicionado, caso o id nao exista ele vai criar um pedido com campo false
             //No quesito producao
@@ -286,5 +287,23 @@ public class PedidoService {
         return pedidoSaved;
     }
 
+    /**Lista os pedidos entregues*/
+    public List<Pedido> listarEntregues() {
+        List<Pedido> pedidos = pedidoRepository.listarEntregues() ;
 
+        if (CollectionUtil.isEmpty(pedidos)) {
+            throw new BusinessException(SistemaMessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO);
+        }
+        return pedidos;
+    }
+
+    /**Lista os pedidos a serem entregues*/
+    public List<Pedido> listarNaoEntregues() {
+        List<Pedido> pedidos = pedidoRepository.listarNaoEntregues() ;
+
+        if (CollectionUtil.isEmpty(pedidos)) {
+            throw new BusinessException(SistemaMessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO);
+        }
+        return pedidos;
+    }
 }

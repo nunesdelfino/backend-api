@@ -88,4 +88,8 @@ class PedidoDTO implements Serializable {
     @ApiModelProperty(value = "Indica se o Pedido está em produção")
     private Boolean statusProducao;
 
+    //Criado para prog mobile
+    @ApiModelProperty(value = "Indica se o Pedido foi entregue")
+    private Boolean statusEntrega;
+
 }
