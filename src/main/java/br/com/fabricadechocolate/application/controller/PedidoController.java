@@ -297,4 +297,71 @@ public class PedidoController extends AbstractController {
         }
         return ResponseEntity.ok(pedidoDTOS);
     }
+
+    /**
+     * Colocar status como entregue pelo 'id' informado do {@link Pedido}.
+     *
+     * @param id
+     * @return
+     */
+    @ApiOperation(value = "Adiciona o Pedido a lista de entregues pelo id informado.", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = PedidoDTO.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
+            @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
+    })
+    @PutMapping(path = "/{id:[\\d]+}/entregar-pedido", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> entregarPedido(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
+        Validation.max("id", id, 99999999L);
+        Pedido pedido = pedidoService.getById(id.longValue());
+        pedido.setStatusEntrega(true);
+        pedidoService.salvar(pedido);
+        return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
+    }
+
+    /**
+     * Retorna uma lista de {@link PedidoDTO} Entregues.
+     *
+     * @return
+     */
+//    @PreAuthorize("hasRole('ROLE_AMIGO_PESQUISAR')")
+    @ApiOperation(value = "Retorna uma lista de Pedido que foram entregues.", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = PedidoDTO.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
+            @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
+    })
+    @GetMapping(path = "/entregue",produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> listarEntregues() {
+
+        List<Pedido> pedidos = pedidoService.listarEntregues();
+        List<PedidoDTO> pedidoDTOS = new ArrayList<>();
+        for (Pedido pedido : pedidos) {
+            PedidoDTO pedidoDTO = pedidoMapper.toDTO(pedido);
+            pedidoDTOS.add(pedidoDTO);
+        }
+        return ResponseEntity.ok(pedidoDTOS);
+    }
+
+    /**
+     * Retorna uma lista de {@link PedidoDTO} a serem entregues.
+     *
+     * @return
+     */
+    @ApiOperation(value = "Retorna as informações dos Pedido a serem entregues.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = PedidoDTO.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
+            @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class) })
+    @RequestMapping(method = RequestMethod.GET, path = "/entregar", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> listarNaoEntregues() {
+
+        List<Pedido> pedidos = pedidoService.listarNaoEntregues();
+        List<PedidoDTO> pedidoDTOS = new ArrayList<>();
+        for (Pedido pedido : pedidos) {
+            PedidoDTO pedidoDTO = pedidoMapper.toDTO(pedido);
+            pedidoDTOS.add(pedidoDTO);
+        }
+        return ResponseEntity.ok(pedidoDTOS);
+    }
 }

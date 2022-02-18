@@ -81,4 +81,9 @@ class Pedido {
     //Criado para producao
     @Column(name = "PRODUCAO", nullable = false)
     private Boolean statusProducao;
+
+    /**
+     * Criado para prog mobile*/
+    @Column(name = "STATUSENTREGAS", nullable = false)
+    private Boolean statusEntrega;
 }
