@@ -287,7 +287,6 @@ public class PedidoService {
             //No quesito producao
             pedido.setStatusProducao(false);
         } else {
-
             buscaObjetosSabores(pedido);
             buscaObjetoTamanho(pedido);
 
