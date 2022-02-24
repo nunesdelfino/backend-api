@@ -63,7 +63,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long>, PedidoRep
     public Optional<Pedido> findByIdFetch( @Param("idPedido") final Long idPedido);
 
     /**
-     * Listar todos os Pedidos Entrgues
+     * Listar todos os Pedidos Entregues
      * @return
      */
     @Query("SELECT pedido from Pedido pedido " +
