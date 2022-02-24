@@ -92,4 +92,14 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long>, PedidoRep
     )
     public List<Pedido> listarNaoEntregues();
 
+    @Query("SELECT pedido from Pedido pedido " +
+            " INNER JOIN FETCH pedido.tamanho tamanho " +
+            " INNER JOIN FETCH pedido.saborUm sabor " +
+            " LEFT JOIN FETCH pedido.saborDois sabor " +
+            " LEFT JOIN FETCH pedido.saborTres sabor " +
+            " LEFT JOIN FETCH pedido.saborQuatro sabor " +
+            " LEFT JOIN FETCH pedido.saborCinco sabor " +
+            " WHERE pedido.status = 'aceitopg' OR pedido.status = 'aceitonpg' OR  pedido.status = 'pendente'")
+    public List<Pedido> getAceitosPendentes();
+
 }

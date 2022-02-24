@@ -111,6 +111,20 @@ public class PedidoService {
      *
      * @return
      */
+    public List<Pedido> getAceitosPendentes() {
+        List<Pedido> pedidos = pedidoRepository.getAceitosPendentes() ;
+
+        if (CollectionUtil.isEmpty(pedidos)) {
+            throw new BusinessException(SistemaMessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO);
+        }
+        return pedidos;
+    }
+
+    /**
+     * Retorna uma lista de {@link Pedido} cadatrados .
+     *
+     * @return
+     */
     public List<Pedido> getPedidoAceito() {
         List<Pedido> pedidos = pedidoRepository.getPedidosAceitos() ;
 

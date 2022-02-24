@@ -122,8 +122,10 @@ public class UsuarioController extends AbstractController {
 		Usuario usuario = usuarioService.getByIdFetch(id.longValue());
 		UsuarioDTO usuarioTO = new UsuarioDTO();
 
-		if(usuario != null)
+		if(usuario != null){
 			usuarioTO = usuarioMapper.toDTO(usuario);
+			usuarioTO.setSenha(null);
+		}
 
 		return ResponseEntity.ok(usuarioTO);
 	}
