@@ -99,7 +99,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long>, PedidoRep
             " LEFT JOIN FETCH pedido.saborTres sabor " +
             " LEFT JOIN FETCH pedido.saborQuatro sabor " +
             " LEFT JOIN FETCH pedido.saborCinco sabor " +
-            " WHERE pedido.status = 'aceitopg' OR pedido.status = 'aceitonpg' OR  pedido.status = 'pendente'")
+            " WHERE pedido.status = 'aceitonpg' OR  pedido.status = 'pendente'")
     public List<Pedido> getAceitosPendentes();
 
 }

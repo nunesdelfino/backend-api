@@ -20,10 +20,10 @@ class Pedido {
     @Column(name = "ID_PEDIDO", nullable = false)
     private Long id;
 
-    @Column(name = "NOME_CLIENTE", length = 100, nullable = false)
+    @Column(name = "NOME", length = 100, nullable = false)
     private String nome;
 
-    @Column(name = "NUMERO_CLIENTE", nullable = false, length = 12 )
+    @Column(name = "CONTATO", nullable = false, length = 12 )
     private String numero;
 
     @Column(name = "TIPO_OVO", length = 20, nullable = false)
@@ -84,6 +84,6 @@ class Pedido {
 
     /**
      * Criado para prog mobile*/
-    @Column(name = "STATUSENTREGAS", nullable = false)
+    @Column(name = "STATUSENTREGA", nullable = false)
     private Boolean statusEntrega;
 }
