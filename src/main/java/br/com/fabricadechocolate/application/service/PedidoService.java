@@ -1,6 +1,5 @@
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.dto.FiltroSaborDTO;
 import br.com.fabricadechocolate.application.model.Pedido;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.CollectionUtil;
