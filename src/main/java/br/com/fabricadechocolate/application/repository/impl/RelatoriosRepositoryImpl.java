@@ -33,12 +33,12 @@ public class RelatoriosRepositoryImpl implements RelatoriosRepositoryCustom {
         jpql.append(" AND pedido.statusEntrega = 'true' ");
 
         if (filtroPedidoDTO.getDataFinal() != null) {
-            jpql.append(" AND pedido.dataEntrega > :dataInicio ");
+            jpql.append(" AND pedido.dataEntrega >= :dataInicio ");
             parametros.put("dataInicio", filtroPedidoDTO.getDataInicio());
         }
 
         if (filtroPedidoDTO.getDataFinal() != null) {
-            jpql.append(" AND pedido.dataEntrega < :dataFinal ");
+            jpql.append(" AND pedido.dataEntrega <= :dataFinal ");
             parametros.put("dataFinal", filtroPedidoDTO.getDataFinal());
         }
 
