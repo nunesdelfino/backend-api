@@ -1,10 +1,9 @@
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.dto.FiltroRelatorioClienteDTO;
+import br.com.fabricadechocolate.application.dto.FiltroRelatoriosDTO;
 import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
 import br.com.fabricadechocolate.application.model.Pedido;
-import br.com.fabricadechocolate.application.repository.RelatorioClienteRepository;
-import br.com.fabricadechocolate.application.repository.RelatorioClienteRepositoryCustom;
+import br.com.fabricadechocolate.application.repository.RelatoriosRepository;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.CollectionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,21 +15,15 @@ import java.util.List;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
-public class RelatorioClienteService {
+public class RelatoriosService {
 
     @Autowired
-    private RelatorioClienteRepository relatorioClienteCustomRepository;
+    private RelatoriosRepository relatoriosRepository;
 
-    /**
-     * Retorna uma lista de {@link Pedido} conforme o filtro de pesquisa informado.
-     *
-     * @param filtroDTO
-     * @return
-     */
-    public List<Pedido> getPedidosByFiltro(FiltroRelatorioClienteDTO filtroDTO) {
-        validarCamposObrigatoriosFiltro(filtroDTO);
+    public List<Pedido> getDadosRealtorios(FiltroRelatoriosDTO filtroDTO) {
+        validarCamposDataFiltro(filtroDTO);
 
-        List<Pedido> pedidos = relatorioClienteCustomRepository.findAllByFiltro(filtroDTO);
+        List<Pedido> pedidos = relatoriosRepository.findRealtoriosFiltro(filtroDTO);
 
         if (CollectionUtil.isEmpty(pedidos)) {
             throw new BusinessException(SistemaMessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO_FILTROS);
@@ -39,13 +32,7 @@ public class RelatorioClienteService {
         return pedidos;
     }
 
-    /**
-     * Verifica se pelo menos um campo de pesquisa foi informado, e se informado o
-     * nome do Pedido
-     *
-     * @param filtroDTO
-     */
-    private void validarCamposObrigatoriosFiltro(final FiltroRelatorioClienteDTO filtroDTO) {
+    private void validarCamposDataFiltro(final FiltroRelatoriosDTO filtroDTO) {
         boolean vazio = Boolean.TRUE;
 
         if (filtroDTO.getDataInicio() != null) {
@@ -60,6 +47,46 @@ public class RelatorioClienteService {
             throw new BusinessException(SistemaMessageCode.ERRO_FILTRO_INFORMAR_OUTRO);
         }
     }
+
+//    /**
+//     * Retorna uma lista de {@link Pedido} conforme o filtro de pesquisa informado.
+//     *
+//     * @param filtroDTO
+//     * @return
+//     */
+//    public List<Pedido> getPedidosByFiltro(FiltroRelatorioClienteDTO filtroDTO) {
+//        validarCamposObrigatoriosFiltro(filtroDTO);
+//
+//        List<Pedido> pedidos = relatorioClienteCustomRepository.findAllByFiltro(filtroDTO);
+//
+//        if (CollectionUtil.isEmpty(pedidos)) {
+//            throw new BusinessException(SistemaMessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO_FILTROS);
+//        }
+//
+//        return pedidos;
+//    }
+//
+//    /**
+//     * Verifica se pelo menos um campo de pesquisa foi informado, e se informado o
+//     * nome do Pedido
+//     *
+//     * @param filtroDTO
+//     */
+//    private void validarCamposObrigatoriosFiltro(final FiltroRelatorioClienteDTO filtroDTO) {
+//        boolean vazio = Boolean.TRUE;
+//
+//        if (filtroDTO.getDataInicio() != null) {
+//            vazio = Boolean.FALSE;
+//        }
+//
+//        if (filtroDTO.getDataFinal() != null) {
+//            vazio = Boolean.FALSE;
+//        }
+//
+//        if (vazio) {
+//            throw new BusinessException(SistemaMessageCode.ERRO_FILTRO_INFORMAR_OUTRO);
+//        }
+//    }
 
 //    /**
 //     * Retorna uma lista de {@link Pedido} cadatrados .

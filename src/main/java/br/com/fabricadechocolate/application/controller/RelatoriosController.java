@@ -1,11 +1,13 @@
 package br.com.fabricadechocolate.application.controller;
 
-import br.com.fabricadechocolate.application.dto.FiltroRelatorioClienteDTO;
+import br.com.fabricadechocolate.application.dto.FiltroRelatoriosDTO;
 import br.com.fabricadechocolate.application.dto.PedidoDTO;
 import br.com.fabricadechocolate.application.dto.RelatorioClienteDTO;
+import br.com.fabricadechocolate.application.dto.RelatorioVendasDTO;
 import br.com.fabricadechocolate.application.mapper.RelatorioClienteMapper;
+import br.com.fabricadechocolate.application.mapper.RelatorioVendasMapper;
 import br.com.fabricadechocolate.application.model.Pedido;
-import br.com.fabricadechocolate.application.service.RelatorioClienteService;
+import br.com.fabricadechocolate.application.service.RelatoriosService;
 import br.com.fabricadechocolate.comum.exception.MessageResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -30,7 +32,10 @@ public class RelatoriosController extends AbstractController {
     private RelatorioClienteMapper relatorioClienteMapper;
 
     @Autowired
-    private RelatorioClienteService relatorioClienteService;
+    private RelatorioVendasMapper relatorioVendasMapper;
+
+    @Autowired
+    private RelatoriosService relatoriosService;
 
     @ApiOperation(value = "Pesquisa de Pedido.",
             notes = "Recupera as informações de Pedido conforme dados informados no filtro de busca", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,9 +44,9 @@ public class RelatoriosController extends AbstractController {
             @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
             @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class) })
     @GetMapping(path = "/cliente", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<?> getAllByFiltro(@ApiParam(value = "Filtro de pesquisa", required = true) @ModelAttribute final FiltroRelatorioClienteDTO filtroPedidoDTO) {
+    public ResponseEntity<?> getRelatorioCliente(@ApiParam(value = "Filtro de pesquisa", required = true) @ModelAttribute final FiltroRelatoriosDTO filtroPedidoDTO) {
         List<RelatorioClienteDTO> pedidoDTOS = new ArrayList<>();
-        List<Pedido> pedidos = relatorioClienteService.getPedidosByFiltro(filtroPedidoDTO);
+        List<Pedido> pedidos = relatoriosService.getDadosRealtorios(filtroPedidoDTO);
         if(pedidos.size() > 0){
             for (Pedido g:
                     pedidos) {
@@ -51,6 +56,27 @@ public class RelatoriosController extends AbstractController {
         }
 
         return ResponseEntity.ok(pedidoDTOS);
+    }
+
+    @ApiOperation(value = "Pesquisa de Pedido.",
+            notes = "Recupera as informações de Pedido conforme dados informados no filtro de busca", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = PedidoDTO.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
+            @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class) })
+    @GetMapping(path = "/vendas", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> getRelatorioVendas(@ApiParam(value = "Filtro de pesquisa", required = true) @ModelAttribute final FiltroRelatoriosDTO filtroPedidoDTO) {
+        List<RelatorioVendasDTO> vendasDTOS = new ArrayList<>();
+        List<Pedido> pedidos = relatoriosService.getDadosRealtorios(filtroPedidoDTO);
+        if(pedidos.size() > 0){
+            for (Pedido g:
+                    pedidos) {
+                RelatorioVendasDTO pedidoDTO = relatorioVendasMapper.toDTO(g);
+                vendasDTOS.add(pedidoDTO);
+            }
+        }
+
+        return ResponseEntity.ok(vendasDTOS);
     }
 
 }
