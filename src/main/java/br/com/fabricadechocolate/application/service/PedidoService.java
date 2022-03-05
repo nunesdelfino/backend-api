@@ -279,8 +279,10 @@ public class PedidoService {
 
         if(pedido.getId() == null && Util.isEmpty(pedido.getStatus())){
             pedido.setStatus("pendente");
-            pedido.setEntregar(StatusSimNao.SIM);
             pedido.setStatusEntrega(false);
+            if(pedido.getEntregar() == null){
+                pedido.setEntregar(StatusSimNao.SIM);
+            }
 
             //Adicionado, caso o id nao exista ele vai criar um pedido com campo false
             //No quesito producao
