@@ -9,8 +9,7 @@
 package br.com.fabricadechocolate.application.repository;
 
 
-import br.com.fabricadechocolate.application.dto.FiltroPedidoDTO;
-import br.com.fabricadechocolate.application.dto.FiltroRelatorioClienteDTO;
+import br.com.fabricadechocolate.application.dto.FiltroRelatoriosDTO;
 import br.com.fabricadechocolate.application.model.Grupo;
 import br.com.fabricadechocolate.application.model.Pedido;
 
@@ -21,7 +20,7 @@ import java.util.List;
  * 
  * @author UEG
  */
-public interface RelatorioClienteRepositoryCustom {
+public interface RelatoriosRepositoryCustom {
 
 	/**
 	 * Retorna uma lista de {@link Pedido} conforme o filtro de pesquisa informado.
@@ -29,7 +28,11 @@ public interface RelatorioClienteRepositoryCustom {
 	 * @param filtroPedidoDTO
 	 * @return
 	 */
-	public List<Pedido> findAllByFiltro(FiltroRelatorioClienteDTO filtroPedidoDTO);
+//	public List<Pedido> findAllByFiltro(FiltroRelatorioClienteDTO filtroPedidoDTO);
+
+	public List<Pedido> findRealtoriosFiltro(FiltroRelatoriosDTO filtroPedidoDTO);
+
+//	public List<Pedido> findRealtorioVendasFiltro(FiltroRelatoriosDTO filtroPedidoDTO);
 
 
 

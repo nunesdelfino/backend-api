@@ -22,25 +22,7 @@ class RelatorioClienteDTO implements Serializable {
 
     private String tipoOvo;
 
-    private Long idSaborUm;
-
-    private String nomeSaborUm;
-
-    private Long idSaborDois;
-
-    private String nomeSaborDois;
-
-    private Long idSaborTres;
-
-    private String nomeSaborTres;
-
-    private Long idSaborQuatro;
-
-    private String nomeSaborQuatro;
-
-    private Long idSaborCinco;
-
-    private String nomeSaborCinco;
+    private String nomeTamanho;
 
     private Double preco;
 

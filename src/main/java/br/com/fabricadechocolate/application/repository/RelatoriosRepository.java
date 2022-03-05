@@ -4,11 +4,9 @@ import br.com.fabricadechocolate.application.model.Pedido;
 import br.com.fabricadechocolate.application.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Classe de persistência referente a entidade {@link Usuario}.
@@ -16,7 +14,7 @@ import java.util.Optional;
  * @author UEG
  */
 @Repository
-public interface RelatorioClienteRepository extends JpaRepository<Pedido, Long>, RelatorioClienteRepositoryCustom {
+public interface RelatoriosRepository extends JpaRepository<Pedido, Long>, RelatoriosRepositoryCustom {
 
     /**
      * Listar todos os Pedidos
