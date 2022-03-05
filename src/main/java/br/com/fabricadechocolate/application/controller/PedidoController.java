@@ -320,6 +320,26 @@ public class PedidoController extends AbstractController {
     }
 
     /**
+     * Colocar status como entregue pelo 'id' informado do {@link Pedido}.
+     *
+     * @param id
+     * @return
+     */
+    @ApiOperation(value = "Adiciona o Pedido a lista de entregues pelo id informado.", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = PedidoDTO.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
+            @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
+    })
+    @PutMapping(path = "/{id:[\\d]+}/desfazer-entrega", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> desfazerEntrega(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
+        Validation.max("id", id, 99999999L);
+        Pedido pedido = pedidoService.getById(id.longValue());
+        pedido.setStatusEntrega(false);
+        pedidoService.salvar(pedido);
+        return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
+    }
+    /**
      * Retorna uma lista de {@link PedidoDTO} Entregues.
      *
      * @return
