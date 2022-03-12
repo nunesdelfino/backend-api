@@ -1,12 +1,11 @@
 package br.com.fabricadechocolate.application.controller;
 
 import br.com.fabricadechocolate.api.util.Validation;
-import br.com.fabricadechocolate.application.dto.FiltroSaborDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroSaborDTO;
 import br.com.fabricadechocolate.application.dto.SaborDTO;
 import br.com.fabricadechocolate.application.mapper.SaborMapper;
 import br.com.fabricadechocolate.application.model.Pedido;
 import br.com.fabricadechocolate.application.service.SaborService;
-import br.com.fabricadechocolate.application.dto.*;
 import br.com.fabricadechocolate.application.model.Sabor;
 import br.com.fabricadechocolate.comum.exception.MessageResponse;
 import io.swagger.annotations.*;

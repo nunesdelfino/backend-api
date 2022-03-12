@@ -2,7 +2,7 @@ package br.com.fabricadechocolate.application.controller;
 
 import br.com.fabricadechocolate.api.util.Validation;
 import br.com.fabricadechocolate.application.service.TipoOvoService;
-import br.com.fabricadechocolate.application.dto.FiltroTipoOvoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroTipoOvoDTO;
 import br.com.fabricadechocolate.application.dto.TipoOvoDTO;
 import br.com.fabricadechocolate.application.enums.StatusSimNao;
 import br.com.fabricadechocolate.application.mapper.TipoOvoMapper;

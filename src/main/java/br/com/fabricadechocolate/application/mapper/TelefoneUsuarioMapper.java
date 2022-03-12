@@ -8,7 +8,7 @@
  */
 package br.com.fabricadechocolate.application.mapper;
 
-import br.com.fabricadechocolate.application.dto.TelefoneUsuarioDTO;
+import br.com.fabricadechocolate.application.dto.outros.TelefoneUsuarioDTO;
 import br.com.fabricadechocolate.application.model.TelefoneUsuario;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

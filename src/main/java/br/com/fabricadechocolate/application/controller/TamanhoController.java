@@ -5,7 +5,7 @@ import br.com.fabricadechocolate.application.dto.TamanhoDTO;
 import br.com.fabricadechocolate.application.model.Pedido;
 import br.com.fabricadechocolate.application.model.Tamanho;
 import br.com.fabricadechocolate.application.service.TamanhoService;
-import br.com.fabricadechocolate.application.dto.FiltroTamanhoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroTamanhoDTO;
 import br.com.fabricadechocolate.application.mapper.TamanhoMapper;
 import br.com.fabricadechocolate.comum.exception.MessageResponse;
 import io.swagger.annotations.*;

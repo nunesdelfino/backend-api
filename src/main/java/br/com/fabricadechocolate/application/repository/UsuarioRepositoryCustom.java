@@ -10,8 +10,8 @@ package br.com.fabricadechocolate.application.repository;
 
 import java.util.List;
 
-import br.com.fabricadechocolate.application.dto.FiltroUsuarioDTO;
-import br.com.fabricadechocolate.application.dto.UsuarioDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroUsuarioDTO;
+import br.com.fabricadechocolate.application.dto.outros.UsuarioDTO;
 import br.com.fabricadechocolate.application.model.Usuario;
 
 /**

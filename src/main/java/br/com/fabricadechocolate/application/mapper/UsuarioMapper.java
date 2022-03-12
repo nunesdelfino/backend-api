@@ -9,7 +9,7 @@
 package br.com.fabricadechocolate.application.mapper;
 
 import br.com.fabricadechocolate.application.model.Usuario;
-import br.com.fabricadechocolate.application.dto.UsuarioDTO;
+import br.com.fabricadechocolate.application.dto.outros.UsuarioDTO;
 import org.mapstruct.Mapper;
 
 /**

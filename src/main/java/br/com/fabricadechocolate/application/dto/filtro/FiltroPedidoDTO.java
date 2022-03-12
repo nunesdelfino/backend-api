@@ -1,4 +1,4 @@
-package br.com.fabricadechocolate.application.dto;
+package br.com.fabricadechocolate.application.dto.filtro;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;

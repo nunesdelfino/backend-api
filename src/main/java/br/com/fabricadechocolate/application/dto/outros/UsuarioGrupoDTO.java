@@ -6,7 +6,7 @@
  *
  *
  */
-package br.com.fabricadechocolate.application.dto;
+package br.com.fabricadechocolate.application.dto.outros;
 
 import br.com.fabricadechocolate.comum.util.Util;
 import br.com.fabricadechocolate.application.model.UsuarioGrupo;

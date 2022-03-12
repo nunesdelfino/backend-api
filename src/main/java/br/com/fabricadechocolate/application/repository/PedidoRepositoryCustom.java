@@ -10,7 +10,7 @@ package br.com.fabricadechocolate.application.repository;
 
 
 import br.com.fabricadechocolate.application.model.Pedido;
-import br.com.fabricadechocolate.application.dto.FiltroPedidoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroPedidoDTO;
 import br.com.fabricadechocolate.application.model.Grupo;
 
 import java.util.List;

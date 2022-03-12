@@ -1,17 +1,14 @@
 package br.com.fabricadechocolate.application.controller;
 
 import br.com.fabricadechocolate.api.util.Validation;
-import br.com.fabricadechocolate.application.dto.FiltroGastoDTO;
-import br.com.fabricadechocolate.application.dto.FiltroSaborDTO;
+import br.com.fabricadechocolate.application.dto.PedidoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroGastoDTO;
 import br.com.fabricadechocolate.application.dto.GastoDTO;
 import br.com.fabricadechocolate.application.dto.SaborDTO;
 import br.com.fabricadechocolate.application.mapper.GastoMapper;
-import br.com.fabricadechocolate.application.mapper.SaborMapper;
 import br.com.fabricadechocolate.application.model.Gasto;
 import br.com.fabricadechocolate.application.model.Pedido;
-import br.com.fabricadechocolate.application.model.Sabor;
 import br.com.fabricadechocolate.application.service.GastoService;
-import br.com.fabricadechocolate.application.service.SaborService;
 import br.com.fabricadechocolate.comum.exception.MessageResponse;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,7 +104,7 @@ public class GastoController extends AbstractController {
             @ApiResponse(code = 200, message = "Success", response = GastoDTO.class),
             @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
             @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class) })
-    @RequestMapping(method = RequestMethod.GET, path = "/filtro", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(path = "/filtro", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<?> getAllByFiltro(@ApiParam(value = "Filtro de pesquisa", required = true) @ModelAttribute final FiltroGastoDTO filtroGastoDTO) {
         List<GastoDTO> gastosDTO = new ArrayList<>();
         List<Gasto> gastos = gastoService.getGastoByFiltro(filtroGastoDTO);
@@ -145,17 +142,16 @@ public class GastoController extends AbstractController {
         return ResponseEntity.ok(gastoDTO);
     }
 
-    /**
-     * Retorna uma lista de {@link GastoDTO} cadastrados.
-     *
-     * @return
-     */
-
-    /**
-     * Ativar {@link Pedido} pelo 'id' informado.
-     *
-     * @param id
-     * @return
-     */
-//
+    @ApiOperation(value = "Remove um Amigo pelo id informado.", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = PedidoDTO.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
+            @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
+    })
+    @DeleteMapping(path = "/{id:[\\d]+}", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> remover(@ApiParam(value = "Id do Custo", required = true) @PathVariable final BigDecimal id) {
+        Validation.max("id", id, 99999999L);
+        Gasto gasto = gastoService.remover(id.longValue());
+        return ResponseEntity.ok(gastoMapper.toDTO(gasto));
+    }
 }

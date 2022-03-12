@@ -1,9 +1,9 @@
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.configuration.Constante;
-import br.com.fabricadechocolate.application.dto.FiltroGastoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroGastoDTO;
 import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
 import br.com.fabricadechocolate.application.model.Gasto;
+import br.com.fabricadechocolate.application.model.Pedido;
 import br.com.fabricadechocolate.application.repository.GastoRepository;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.CollectionUtil;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,6 +52,10 @@ public class GastoService {
         boolean vazio = Boolean.TRUE;
 
         if (!Util.isEmpty(filtroDTO.getNomeEstabelecimento())) {
+            vazio = Boolean.FALSE;
+        }
+
+        if (!Util.isEmpty(filtroDTO.getItem())) {
             vazio = Boolean.FALSE;
         }
 
@@ -132,9 +135,11 @@ public class GastoService {
         }
     }
 
-    /**
-     * Verifica se o Gasto a ser salvo já existe na base de dados.
-     *
-     * @param gasto
-     */
+    public Gasto remover(Long id){
+        Gasto gasto = this.getById(id);
+
+        gastoRepository.delete(gasto);
+
+        return gasto;
+    }
 }

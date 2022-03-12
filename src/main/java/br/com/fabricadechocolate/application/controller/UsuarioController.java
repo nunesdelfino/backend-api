@@ -15,8 +15,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import br.com.fabricadechocolate.api.util.Validation;
-import br.com.fabricadechocolate.application.dto.FiltroUsuarioDTO;
-import br.com.fabricadechocolate.application.dto.UsuarioDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroUsuarioDTO;
+import br.com.fabricadechocolate.application.dto.outros.UsuarioDTO;
 import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
 import br.com.fabricadechocolate.application.mapper.UsuarioMapper;
 import br.com.fabricadechocolate.application.model.Usuario;
@@ -25,7 +25,6 @@ import br.com.fabricadechocolate.comum.exception.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;

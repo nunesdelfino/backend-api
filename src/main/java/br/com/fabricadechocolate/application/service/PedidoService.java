@@ -1,15 +1,16 @@
 package br.com.fabricadechocolate.application.service;
 
 import br.com.fabricadechocolate.application.model.Pedido;
+import br.com.fabricadechocolate.application.repository.PedidoRepository;
+import br.com.fabricadechocolate.application.repository.impl.PedidoRepositoryImpl;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.CollectionUtil;
 import br.com.fabricadechocolate.comum.util.Util;
-import br.com.fabricadechocolate.application.dto.FiltroPedidoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroPedidoDTO;
 import br.com.fabricadechocolate.application.enums.StatusSimNao;
 import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
 import br.com.fabricadechocolate.application.model.Sabor;
 import br.com.fabricadechocolate.application.model.Tamanho;
-import br.com.fabricadechocolate.application.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -217,13 +218,13 @@ public class PedidoService {
 
     }
 
-    public Pedido remover(Long id){
-        Pedido pedido = this.getById(id);
-
-        pedidoRepository.delete(pedido);
-
-        return pedido;
-    }
+//    public Pedido remover(Long id){
+//        Pedido pedido = this.getById(id);
+//
+//        pedidoRepository.delete(pedido);
+//
+//        return pedido;
+//    }
 
 
 

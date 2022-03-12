@@ -6,7 +6,7 @@
  *
  *
  */
-package br.com.fabricadechocolate.application.dto;
+package br.com.fabricadechocolate.application.dto.outros;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;

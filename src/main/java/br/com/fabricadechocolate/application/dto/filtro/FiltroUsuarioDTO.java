@@ -1,4 +1,4 @@
-package br.com.fabricadechocolate.application.dto;
+package br.com.fabricadechocolate.application.dto.filtro;
 
 import java.io.Serializable;
 

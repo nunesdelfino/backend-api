@@ -6,10 +6,10 @@
  *
  *
  */
-package br.com.fabricadechocolate.application.dto;
+package br.com.fabricadechocolate.application.dto.outros;
 
+import br.com.fabricadechocolate.application.model.Funcionalidade;
 import br.com.fabricadechocolate.comum.util.Util;
-import br.com.fabricadechocolate.application.model.Modulo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
@@ -19,25 +19,24 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.List;
 
 /**
- * Classe de transferência referente a entidade {@link Modulo}.
+ * Classe de transferência referente a entidade {@link Funcionalidade}.
  *
  * @author UEG
  */
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@ApiModel(value = "Entidade de transferência de Modulos do sistema")
-public @Data class ModuloDTO implements Serializable {
+@ApiModel(value = "Entidade de transferência de Funcionalidade")
+public @Data class FuncionalidadeDTO implements Serializable {
 
-	private static final long serialVersionUID = -3191642221341828960L;
+	private static final long serialVersionUID = 5911613757185877040L;
 
-	@ApiModelProperty(value = "Código do Modulo do sistema")
+	@ApiModelProperty(value = "Código da Funcionalidade")
 	private String id;
 
 	@Size(max = 200)
-	@ApiModelProperty(value = "Nome do Modulo do sistema")
+	@ApiModelProperty(value = "Nome da Funcionalidade")
 	private String nome;
 
 	@Size(max = 40)
@@ -49,9 +48,6 @@ public @Data class ModuloDTO implements Serializable {
 
 	@ApiModelProperty(value = "Descrição do Status do Usuário")
 	private String descricaoStatus;
-
-	@ApiModelProperty(value = "Lista de Funcionalidades do Módulo")
-	private List<FuncionalidadeDTO> funcionalidades;
 
 	/**
 	 * @return the id

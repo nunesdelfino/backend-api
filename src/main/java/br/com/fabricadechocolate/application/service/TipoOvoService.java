@@ -4,7 +4,7 @@ import br.com.fabricadechocolate.application.configuration.Constante;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.CollectionUtil;
 import br.com.fabricadechocolate.comum.util.Util;
-import br.com.fabricadechocolate.application.dto.FiltroTipoOvoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroTipoOvoDTO;
 import br.com.fabricadechocolate.application.enums.StatusSimNao;
 import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
 import br.com.fabricadechocolate.application.model.TipoOvo;

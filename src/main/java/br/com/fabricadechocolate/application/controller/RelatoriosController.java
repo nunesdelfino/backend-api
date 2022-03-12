@@ -1,6 +1,6 @@
 package br.com.fabricadechocolate.application.controller;
 
-import br.com.fabricadechocolate.application.dto.FiltroRelatoriosDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroRelatoriosDTO;
 import br.com.fabricadechocolate.application.dto.PedidoDTO;
 import br.com.fabricadechocolate.application.dto.RelatorioClienteDTO;
 import br.com.fabricadechocolate.application.dto.RelatorioVendasDTO;

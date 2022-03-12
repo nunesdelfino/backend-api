@@ -1,6 +1,6 @@
 package br.com.fabricadechocolate.application.repository.impl;
 
-import br.com.fabricadechocolate.application.dto.FiltroRelatoriosDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroRelatoriosDTO;
 import br.com.fabricadechocolate.application.model.Pedido;
 import br.com.fabricadechocolate.application.repository.RelatoriosRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class RelatoriosRepositoryImpl implements RelatoriosRepositoryCustom {
         jpql.append(" LEFT JOIN FETCH pedido.saborCinco sabor");
 
         jpql.append(" WHERE 1=1 ");
-        jpql.append(" AND pedido.statusEntrega = 'true' ");
+        jpql.append(" AND pedido.status = 'entregue' ");
 
         if (filtroPedidoDTO.getDataFinal() != null) {
             jpql.append(" AND pedido.dataEntrega >= :dataInicio ");

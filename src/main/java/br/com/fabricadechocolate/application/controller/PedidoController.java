@@ -1,7 +1,7 @@
 package br.com.fabricadechocolate.application.controller;
 
 import br.com.fabricadechocolate.api.util.Validation;
-import br.com.fabricadechocolate.application.dto.FiltroPedidoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroPedidoDTO;
 import br.com.fabricadechocolate.application.dto.PedidoDTO;
 import br.com.fabricadechocolate.application.mapper.PedidoMapper;
 import br.com.fabricadechocolate.application.model.Pedido;
@@ -164,18 +164,18 @@ public class PedidoController extends AbstractController {
      * @return
      */
 //    @PreAuthorize("hasRole('ROLE_AMIGO_REMOVER')")
-    @ApiOperation(value = "Remove um Amigo pelo id informado.", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = PedidoDTO.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
-            @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
-    })
-    @DeleteMapping(path = "/{id:[\\d]+}", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<?> remover(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
-        Validation.max("id", id, 99999999L);
-        Pedido pedido = pedidoService.remover(id.longValue());
-        return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
-    }
+//    @ApiOperation(value = "Remove um Amigo pelo id informado.", produces = MediaType.APPLICATION_JSON_VALUE)
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "Success", response = PedidoDTO.class),
+//            @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
+//            @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
+//    })
+//    @DeleteMapping(path = "/{id:[\\d]+}", produces = { MediaType.APPLICATION_JSON_VALUE })
+//    public ResponseEntity<?> remover(@ApiParam(value = "Id do Pedido", required = true) @PathVariable final BigDecimal id) {
+//        Validation.max("id", id, 99999999L);
+//        Pedido pedido = pedidoService.remover(id.longValue());
+//        return ResponseEntity.ok(pedidoMapper.toDTO(pedido));
+//    }
 
     /**
      * Ativar {@link Pedido} pelo 'id' informado.

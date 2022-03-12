@@ -8,15 +8,15 @@
  */
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.dto.AuthDTO;
-import br.com.fabricadechocolate.application.dto.CredencialDTO;
+import br.com.fabricadechocolate.application.dto.outros.AuthDTO;
+import br.com.fabricadechocolate.application.dto.outros.CredencialDTO;
 import br.com.fabricadechocolate.application.enums.StatusSimNao;
 import br.com.fabricadechocolate.application.model.Usuario;
 import br.com.fabricadechocolate.application.security.CredentialImpl;
 import br.com.fabricadechocolate.application.security.TokenBuilder;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.Util;
-import br.com.fabricadechocolate.application.dto.UsuarioSenhaDTO;
+import br.com.fabricadechocolate.application.dto.outros.UsuarioSenhaDTO;
 import br.com.fabricadechocolate.application.configuration.Constante;
 import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
 import br.com.fabricadechocolate.application.security.KeyToken;

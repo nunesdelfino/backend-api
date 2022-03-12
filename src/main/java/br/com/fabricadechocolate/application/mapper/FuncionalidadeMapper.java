@@ -1,7 +1,7 @@
 package br.com.fabricadechocolate.application.mapper;
 
 
-import br.com.fabricadechocolate.application.dto.FuncionalidadeDTO;
+import br.com.fabricadechocolate.application.dto.outros.FuncionalidadeDTO;
 import br.com.fabricadechocolate.application.model.Funcionalidade;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

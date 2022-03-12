@@ -6,8 +6,9 @@
  *
  *
  */
-package br.com.fabricadechocolate.application.dto;
+package br.com.fabricadechocolate.application.dto.outros;
 
+import br.com.fabricadechocolate.application.dto.outros.GrupoFuncionalidadeDTO;
 import br.com.fabricadechocolate.application.model.Grupo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;

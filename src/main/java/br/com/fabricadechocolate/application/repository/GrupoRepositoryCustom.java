@@ -9,7 +9,7 @@
 package br.com.fabricadechocolate.application.repository;
 
 
-import br.com.fabricadechocolate.application.dto.FiltroGrupoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroGrupoDTO;
 import br.com.fabricadechocolate.application.model.Grupo;
 
 import java.util.List;
