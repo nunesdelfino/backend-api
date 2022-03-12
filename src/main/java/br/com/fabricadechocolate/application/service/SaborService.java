@@ -1,11 +1,10 @@
 package br.com.fabricadechocolate.application.service;
 
 import br.com.fabricadechocolate.application.configuration.Constante;
-import br.com.fabricadechocolate.application.dto.FiltroTamanhoDTO;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.CollectionUtil;
 import br.com.fabricadechocolate.comum.util.Util;
-import br.com.fabricadechocolate.application.dto.FiltroSaborDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroSaborDTO;
 import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
 import br.com.fabricadechocolate.application.model.Sabor;
 import br.com.fabricadechocolate.application.repository.SaborRepository;

@@ -26,6 +26,9 @@ public @Data class GastoDTO implements Serializable {
     @ApiModelProperty(value = "nome estabelecimento")
     private String nomeEstabelecimento;
 
+    @ApiModelProperty(value = "item")
+    private String item;
+
     @ApiModelProperty(value = "valor")
     private Float valor;
 

@@ -1,6 +1,6 @@
 package br.com.fabricadechocolate.application.repository.impl;
 
-import br.com.fabricadechocolate.application.dto.FiltroTipoOvoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroTipoOvoDTO;
 import br.com.fabricadechocolate.application.model.TipoOvo;
 import br.com.fabricadechocolate.application.repository.TipoOvoRepositoryCustom;
 import br.com.fabricadechocolate.comum.util.Util;

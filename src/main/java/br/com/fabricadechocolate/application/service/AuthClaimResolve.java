@@ -8,7 +8,7 @@
  */
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.dto.UsuarioSenhaDTO;
+import br.com.fabricadechocolate.application.dto.outros.UsuarioSenhaDTO;
 import br.com.fabricadechocolate.application.configuration.Constante;
 import br.com.fabricadechocolate.application.security.TokenBuilder.TokenType;
 import com.auth0.jwt.interfaces.Claim;

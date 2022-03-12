@@ -1,6 +1,6 @@
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.dto.FiltroRelatoriosDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroRelatoriosDTO;
 import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
 import br.com.fabricadechocolate.application.model.Pedido;
 import br.com.fabricadechocolate.application.repository.RelatoriosRepository;

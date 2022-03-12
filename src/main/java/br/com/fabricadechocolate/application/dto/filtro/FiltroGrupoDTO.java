@@ -1,4 +1,4 @@
-package br.com.fabricadechocolate.application.dto;
+package br.com.fabricadechocolate.application.dto.filtro;
 
 import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
 import br.com.fabricadechocolate.comum.util.Util;

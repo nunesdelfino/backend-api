@@ -1,9 +1,9 @@
 package br.com.fabricadechocolate.application.controller;
 
 import br.com.fabricadechocolate.api.util.Validation;
-import br.com.fabricadechocolate.application.dto.FiltroGrupoDTO;
-import br.com.fabricadechocolate.application.dto.FiltroUsuarioDTO;
-import br.com.fabricadechocolate.application.dto.GrupoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroGrupoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroUsuarioDTO;
+import br.com.fabricadechocolate.application.dto.outros.GrupoDTO;
 import br.com.fabricadechocolate.application.mapper.GrupoMapper;
 import br.com.fabricadechocolate.application.model.Grupo;
 import br.com.fabricadechocolate.application.security.CredentialImpl;

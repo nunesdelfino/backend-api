@@ -6,7 +6,7 @@
  *
  *
  */
-package br.com.fabricadechocolate.application.dto;
+package br.com.fabricadechocolate.application.dto.outros;
 
 import java.io.Serializable;
 

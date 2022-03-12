@@ -8,18 +8,15 @@
  */
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.dto.AuthDTO;
-import br.com.fabricadechocolate.application.dto.FiltroUsuarioDTO;
+import br.com.fabricadechocolate.application.dto.outros.AuthDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroUsuarioDTO;
 import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
-import br.com.fabricadechocolate.application.model.Grupo;
-import br.com.fabricadechocolate.application.model.TelefoneUsuario;
 import br.com.fabricadechocolate.application.model.Usuario;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.CollectionUtil;
 import br.com.fabricadechocolate.comum.util.Util;
-import br.com.fabricadechocolate.application.dto.UsuarioDTO;
-import br.com.fabricadechocolate.application.dto.UsuarioSenhaDTO;
-import br.com.fabricadechocolate.application.model.UsuarioGrupo;
+import br.com.fabricadechocolate.application.dto.outros.UsuarioDTO;
+import br.com.fabricadechocolate.application.dto.outros.UsuarioSenhaDTO;
 import br.com.fabricadechocolate.application.configuration.Constante;
 import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
 import br.com.fabricadechocolate.application.repository.UsuarioRepository;
@@ -29,11 +26,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Classe de négocio referente a entidade {@link Usuario}.

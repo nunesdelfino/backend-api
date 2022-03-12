@@ -8,10 +8,10 @@
  */
 package br.com.fabricadechocolate.application.controller;
 
-import br.com.fabricadechocolate.application.dto.AuthDTO;
-import br.com.fabricadechocolate.application.dto.CredencialDTO;
-import br.com.fabricadechocolate.application.dto.UsuarioDTO;
-import br.com.fabricadechocolate.application.dto.UsuarioSenhaDTO;
+import br.com.fabricadechocolate.application.dto.outros.AuthDTO;
+import br.com.fabricadechocolate.application.dto.outros.CredencialDTO;
+import br.com.fabricadechocolate.application.dto.outros.UsuarioDTO;
+import br.com.fabricadechocolate.application.dto.outros.UsuarioSenhaDTO;
 import br.com.fabricadechocolate.application.model.Usuario;
 import br.com.fabricadechocolate.application.service.AuthService;
 import br.com.fabricadechocolate.application.service.UsuarioService;

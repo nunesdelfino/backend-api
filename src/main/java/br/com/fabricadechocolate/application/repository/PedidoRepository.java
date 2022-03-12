@@ -1,21 +1,13 @@
 package br.com.fabricadechocolate.application.repository;
 
 import br.com.fabricadechocolate.application.model.Pedido;
-import br.com.fabricadechocolate.application.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Classe de persistência referente a entidade {@link Usuario}.
- *
- * @author UEG
- */
-@Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long>, PedidoRepositoryCustom {
 
     /**
@@ -60,7 +52,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long>, PedidoRep
             " LEFT JOIN FETCH pedido.saborQuatro sabor " +
             " LEFT JOIN FETCH pedido.saborCinco sabor " +
             " WHERE pedido.id = :idPedido ")
-    public Optional<Pedido> findByIdFetch( @Param("idPedido") final Long idPedido);
+    public Optional<Pedido> findByIdFetch(@Param("idPedido") final Long idPedido);
 
     /**
      * Listar todos os Pedidos Entregues
@@ -101,5 +93,4 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long>, PedidoRep
             " LEFT JOIN FETCH pedido.saborCinco sabor " +
             " WHERE pedido.status = 'aceitonpg' OR  pedido.status = 'pendente'")
     public List<Pedido> getAceitosPendentes();
-
 }

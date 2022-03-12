@@ -5,7 +5,7 @@ import br.com.fabricadechocolate.application.model.Tamanho;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.CollectionUtil;
 import br.com.fabricadechocolate.comum.util.Util;
-import br.com.fabricadechocolate.application.dto.FiltroTamanhoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroTamanhoDTO;
 import br.com.fabricadechocolate.application.exception.SistemaMessageCode;
 import br.com.fabricadechocolate.application.repository.TamanhoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

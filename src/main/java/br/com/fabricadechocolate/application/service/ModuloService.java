@@ -8,7 +8,7 @@
  */
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.dto.ModuloDTO;
+import br.com.fabricadechocolate.application.dto.outros.ModuloDTO;
 import br.com.fabricadechocolate.application.model.Modulo;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
 import br.com.fabricadechocolate.comum.util.CollectionUtil;

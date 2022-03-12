@@ -8,7 +8,7 @@
  */
 package br.com.fabricadechocolate.application.security;
 
-import br.com.fabricadechocolate.application.dto.CredencialDTO;
+import br.com.fabricadechocolate.application.dto.outros.CredencialDTO;
 import br.com.fabricadechocolate.comum.security.Credential;
 
 import java.util.List;

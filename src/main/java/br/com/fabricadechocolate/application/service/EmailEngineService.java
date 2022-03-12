@@ -14,7 +14,7 @@ import br.com.fabricadechocolate.application.security.TokenBuilder;
 import br.com.fabricadechocolate.comum.email.Email;
 import br.com.fabricadechocolate.comum.email.EmailException;
 import br.com.fabricadechocolate.comum.exception.BusinessException;
-import br.com.fabricadechocolate.application.dto.UsuarioSenhaDTO;
+import br.com.fabricadechocolate.application.dto.outros.UsuarioSenhaDTO;
 import br.com.fabricadechocolate.application.model.Usuario;
 import freemarker.template.Configuration;
 import freemarker.template.Template;

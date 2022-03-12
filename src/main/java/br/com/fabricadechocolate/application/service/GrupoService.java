@@ -1,6 +1,6 @@
 package br.com.fabricadechocolate.application.service;
 
-import br.com.fabricadechocolate.application.dto.FiltroGrupoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroGrupoDTO;
 import br.com.fabricadechocolate.application.enums.StatusAtivoInativo;
 import br.com.fabricadechocolate.application.model.Grupo;
 import br.com.fabricadechocolate.application.model.GrupoFuncionalidade;

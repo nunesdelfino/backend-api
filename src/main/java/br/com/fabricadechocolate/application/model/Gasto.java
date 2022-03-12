@@ -18,6 +18,9 @@ class Gasto {
     @Column(name = "ID_GASTO", nullable = false)
     private Long id;
 
+    @Column(name="ITEM")
+    private String item;
+
     @Column(name = "DATA", length = 40, nullable = false)
     private LocalDate data;
 

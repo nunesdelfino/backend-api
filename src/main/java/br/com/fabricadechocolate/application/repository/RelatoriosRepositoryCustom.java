@@ -9,7 +9,7 @@
 package br.com.fabricadechocolate.application.repository;
 
 
-import br.com.fabricadechocolate.application.dto.FiltroRelatoriosDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroRelatoriosDTO;
 import br.com.fabricadechocolate.application.model.Grupo;
 import br.com.fabricadechocolate.application.model.Pedido;
 

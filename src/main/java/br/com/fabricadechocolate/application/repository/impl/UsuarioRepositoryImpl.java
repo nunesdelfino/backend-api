@@ -15,8 +15,8 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import br.com.fabricadechocolate.application.dto.FiltroUsuarioDTO;
-import br.com.fabricadechocolate.application.dto.UsuarioDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroUsuarioDTO;
+import br.com.fabricadechocolate.application.dto.outros.UsuarioDTO;
 import br.com.fabricadechocolate.application.model.Usuario;
 import br.com.fabricadechocolate.application.repository.UsuarioRepositoryCustom;
 import br.com.fabricadechocolate.comum.util.Util;

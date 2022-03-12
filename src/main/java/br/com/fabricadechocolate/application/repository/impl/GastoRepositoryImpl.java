@@ -1,6 +1,6 @@
 package br.com.fabricadechocolate.application.repository.impl;
 
-import br.com.fabricadechocolate.application.dto.FiltroGastoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroGastoDTO;
 import br.com.fabricadechocolate.application.model.Gasto;
 import br.com.fabricadechocolate.comum.util.Util;
 import br.com.fabricadechocolate.application.repository.GastoRepositoryCustom;

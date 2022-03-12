@@ -1,7 +1,7 @@
 package br.com.fabricadechocolate.application.repository;
 
 import br.com.fabricadechocolate.application.model.TipoOvo;
-import br.com.fabricadechocolate.application.dto.FiltroTipoOvoDTO;
+import br.com.fabricadechocolate.application.dto.filtro.FiltroTipoOvoDTO;
 
 import java.util.List;
 
