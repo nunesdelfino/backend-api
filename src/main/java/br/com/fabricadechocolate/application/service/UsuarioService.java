@@ -79,7 +79,7 @@ public class UsuarioService {
 
 			Usuario vigente = getById(usuario.getId());
 
-			if(!Util.isEmpty(usuario.getSenha())){
+			if(!Util.isEmpty(usuario.getSenha()) && !usuario.getSenha().startsWith("$2a$")){
 				usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
 			} else {
 				usuario.setSenha(vigente.getSenha());
