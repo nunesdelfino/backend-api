@@ -25,9 +25,19 @@ public class GastoRepositoryImpl implements GastoRepositoryCustom {
         jpql.append(" SELECT DISTINCT gasto FROM Gasto gasto");
         jpql.append(" WHERE 1=1 ");
 
+        if (!Util.isEmpty(filtroGastoDTO.getItem())){
+            jpql.append(" AND UPPER(gasto.item) LIKE UPPER('%' || :item || '%')  ");
+            parametros.put("item", filtroGastoDTO.getItem());
+        }
+
         if (!Util.isEmpty(filtroGastoDTO.getNomeEstabelecimento())){
-            jpql.append(" AND UPPER(gasto.gasto) LIKE UPPER('%' || :nome estabelecimento || '%')  ");
-            parametros.put("Gasto", filtroGastoDTO.getNomeEstabelecimento());
+            jpql.append(" AND UPPER(gasto.nomeEstabelecimento) LIKE UPPER('%' || :nomeEstabelecimento || '%')  ");
+            parametros.put("nomeEstabelecimento", filtroGastoDTO.getNomeEstabelecimento());
+        }
+
+        if (filtroGastoDTO.getData() != null) {
+            jpql.append(" AND gasto.data <= :data ");
+            parametros.put("data", filtroGastoDTO.getData());
         }
 
         TypedQuery<Gasto> query = entityManager.createQuery(jpql.toString(), Gasto.class);

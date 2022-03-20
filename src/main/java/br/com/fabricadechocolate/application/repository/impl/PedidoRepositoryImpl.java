@@ -43,7 +43,7 @@ public class PedidoRepositoryImpl implements PedidoRepositoryCustom {
         }
 
         if (!Util.isEmpty(filtroPedidoDTO.getStatus())) {
-            jpql.append(" AND pedido.status = :status ");
+            jpql.append(" AND UPPER(pedido.status) LIKE UPPER('%' || :status || '%') ");
             parametros.put("status", filtroPedidoDTO.getStatus());
         }
 

@@ -52,10 +52,9 @@ public class PedidoService {
     }
 
     private FiltroPedidoDTO validaPesquisa(FiltroPedidoDTO filtroDTO) {
-        if(Util.isEmpty(filtroDTO.getNome()) && filtroDTO.getIdTamanho() == null && filtroDTO.getDataEntrega() == null && !Util.isEmpty(filtroDTO.getStatus())){
+        if(!Util.isEmpty(filtroDTO.getStatus())){
             if(filtroDTO.getStatus().equalsIgnoreCase("T")){
-                filtroDTO.setNome("%%%");
-                filtroDTO.setStatus(null);
+                filtroDTO.setStatus("%%%");
             }
         }
 
