@@ -14,10 +14,10 @@ import java.time.LocalDate;
 public @Data class FiltroRelatoriosDTO implements Serializable {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
-    private LocalDate dataInicio;
+//    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private String dataInicio;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
-    private LocalDate dataFinal;
+//    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private String dataFinal;
 }

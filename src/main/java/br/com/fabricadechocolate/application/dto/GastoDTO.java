@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -21,7 +22,7 @@ public @Data class GastoDTO implements Serializable {
 
     @ApiModelProperty(value = "data")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private LocalDate data;
+    private String data;
 
     @ApiModelProperty(value = "nome estabelecimento")
     private String nomeEstabelecimento;

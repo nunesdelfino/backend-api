@@ -293,6 +293,11 @@ public class PedidoService {
 
         }
 
+        if(pedido.getDataEntrega().length() > 10){
+            StringBuilder s = new StringBuilder(pedido.getDataEntrega());
+            pedido.setDataEntrega(String.valueOf(s.delete(10,(pedido.getDataEntrega().length()))));
+        }
+
         prepararParaSalvar(pedido);
         validarCamposObrigatorios(pedido);
 

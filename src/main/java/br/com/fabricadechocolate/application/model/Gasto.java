@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TBL_GASTO", schema = Constante.DATABASE_OWNER)
@@ -22,7 +23,7 @@ class Gasto {
     private String item;
 
     @Column(name = "DATA", length = 40, nullable = false)
-    private LocalDate data;
+    private String data;
 
     @Column(name = "NOME_ESTABELECIMENTO", nullable = false)
     private String nomeEstabelecimento;

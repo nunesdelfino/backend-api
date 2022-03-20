@@ -35,8 +35,8 @@ public class GastoRepositoryImpl implements GastoRepositoryCustom {
             parametros.put("nomeEstabelecimento", filtroGastoDTO.getNomeEstabelecimento());
         }
 
-        if (filtroGastoDTO.getData() != null) {
-            jpql.append(" AND gasto.data <= :data ");
+        if (!Util.isEmpty(filtroGastoDTO.getData())){
+            jpql.append(" AND UPPER(gasto.data) LIKE UPPER('%' || :data || '%')  ");
             parametros.put("data", filtroGastoDTO.getData());
         }
 

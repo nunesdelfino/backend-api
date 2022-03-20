@@ -47,8 +47,8 @@ public class PedidoRepositoryImpl implements PedidoRepositoryCustom {
             parametros.put("status", filtroPedidoDTO.getStatus());
         }
 
-        if (filtroPedidoDTO.getDataEntrega() != null) {
-            jpql.append(" AND pedido.dataEntrega = :dataEntrega ");
+        if (!Util.isEmpty(filtroPedidoDTO.getDataEntrega())) {
+            jpql.append(" AND UPPER(pedido.dataEntrega) LIKE UPPER('%' || :dataEntrega || '%') ");
             parametros.put("dataEntrega", filtroPedidoDTO.getDataEntrega());
         }
 

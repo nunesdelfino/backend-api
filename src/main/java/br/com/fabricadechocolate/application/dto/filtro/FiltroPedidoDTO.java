@@ -20,9 +20,9 @@ public @Data class FiltroPedidoDTO implements Serializable {
     private Long idTamanho;
 
     @ApiModelProperty(value = "Data do Entrega")
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
-    private LocalDate dataEntrega;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING)
+//    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private String dataEntrega;
 
     @ApiModelProperty(value = "Indica se o Pedido está ativo ou não")
     private String status; //Se status aceito

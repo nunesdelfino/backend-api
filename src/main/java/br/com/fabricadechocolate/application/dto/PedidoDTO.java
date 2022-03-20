@@ -75,8 +75,8 @@ class PedidoDTO implements Serializable {
     private StatusSimNao entregar;
 
     @ApiModelProperty(value = "Data da Entega")
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private LocalDate dataEntrega;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private String dataEntrega;
 
     @ApiModelProperty(value = "Endereço")
     private String endereco;

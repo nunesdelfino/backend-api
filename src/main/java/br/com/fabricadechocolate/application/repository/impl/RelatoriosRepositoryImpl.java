@@ -3,6 +3,7 @@ package br.com.fabricadechocolate.application.repository.impl;
 import br.com.fabricadechocolate.application.dto.filtro.FiltroRelatoriosDTO;
 import br.com.fabricadechocolate.application.model.Pedido;
 import br.com.fabricadechocolate.application.repository.RelatoriosRepositoryCustom;
+import br.com.fabricadechocolate.comum.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -32,13 +33,13 @@ public class RelatoriosRepositoryImpl implements RelatoriosRepositoryCustom {
         jpql.append(" WHERE 1=1 ");
         jpql.append(" AND pedido.status = 'entregue' ");
 
-        if (filtroPedidoDTO.getDataFinal() != null) {
-            jpql.append(" AND pedido.dataEntrega >= :dataInicio ");
+        if (!Util.isEmpty(filtroPedidoDTO.getDataInicio())) {
+            jpql.append(" AND UPPER(pedido.dataEntrega) >= UPPER('%' || :dataInicio || '%') ");
             parametros.put("dataInicio", filtroPedidoDTO.getDataInicio());
         }
 
-        if (filtroPedidoDTO.getDataFinal() != null) {
-            jpql.append(" AND pedido.dataEntrega <= :dataFinal ");
+        if (!Util.isEmpty(filtroPedidoDTO.getDataFinal())) {
+            jpql.append(" AND UPPER(pedido.dataEntrega) <= UPPER('%' || :dataFinal || '%') ");
             parametros.put("dataFinal", filtroPedidoDTO.getDataFinal());
         }
 
