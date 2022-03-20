@@ -70,7 +70,7 @@ class Pedido {
     private StatusSimNao entregar;
 
     @Column(name = "DATA_ENTREGA", nullable = false)
-    private LocalDate dataEntrega;
+    private String dataEntrega;
 
     @Column(name = "ENDERECO")
     private String endereco;

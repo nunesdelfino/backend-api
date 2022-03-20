@@ -52,10 +52,9 @@ public class PedidoService {
     }
 
     private FiltroPedidoDTO validaPesquisa(FiltroPedidoDTO filtroDTO) {
-        if(Util.isEmpty(filtroDTO.getNome()) && filtroDTO.getIdTamanho() == null && filtroDTO.getDataEntrega() == null && !Util.isEmpty(filtroDTO.getStatus())){
+        if(!Util.isEmpty(filtroDTO.getStatus())){
             if(filtroDTO.getStatus().equalsIgnoreCase("T")){
-                filtroDTO.setNome("%%%");
-                filtroDTO.setStatus(null);
+                filtroDTO.setStatus("%%%");
             }
         }
 
@@ -292,6 +291,11 @@ public class PedidoService {
             buscaObjetosSabores(pedido);
             buscaObjetoTamanho(pedido);
 
+        }
+
+        if(pedido.getDataEntrega().length() > 10){
+            StringBuilder s = new StringBuilder(pedido.getDataEntrega());
+            pedido.setDataEntrega(String.valueOf(s.delete(10,(pedido.getDataEntrega().length()))));
         }
 
         prepararParaSalvar(pedido);

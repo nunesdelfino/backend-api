@@ -43,12 +43,12 @@ public class PedidoRepositoryImpl implements PedidoRepositoryCustom {
         }
 
         if (!Util.isEmpty(filtroPedidoDTO.getStatus())) {
-            jpql.append(" AND pedido.status = :status ");
+            jpql.append(" AND UPPER(pedido.status) LIKE UPPER('%' || :status || '%') ");
             parametros.put("status", filtroPedidoDTO.getStatus());
         }
 
-        if (filtroPedidoDTO.getDataEntrega() != null) {
-            jpql.append(" AND pedido.dataEntrega = :dataEntrega ");
+        if (!Util.isEmpty(filtroPedidoDTO.getDataEntrega())) {
+            jpql.append(" AND UPPER(pedido.dataEntrega) LIKE UPPER('%' || :dataEntrega || '%') ");
             parametros.put("dataEntrega", filtroPedidoDTO.getDataEntrega());
         }
 
